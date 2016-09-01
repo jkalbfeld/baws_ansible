@@ -5,6 +5,7 @@
 - name: install php packages
   yum: name={{ item }} state=installed
   with_items:
+  - php7-pear
   - php70
   - php70-dba
   - php70-devel
