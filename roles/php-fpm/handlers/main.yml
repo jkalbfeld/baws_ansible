@@ -1,0 +1,15 @@
+# todo: what was installing this before? It's not installing.
+- name: set pear vars
+  shell: /usr/bin/pear config-set php_ini /etc/php.ini
+
+- name: enable php-fpm boot
+  service: name=php-fpm-5.6 enabled=yes
+
+- name: restart php-fpm
+  service: name=php-fpm-5.6 state=restarted
+
+- name: set pecl vars
+  command: /usr/bin/pecl config-set php_ini /etc/php.ini
+
+- name: set pear vars
+  command: /usr/bin/pear config-set php_ini /etc/php.ini

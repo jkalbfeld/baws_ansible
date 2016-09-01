@@ -1,0 +1,10 @@
+{
+  "require": {
+    "aws/aws-sdk-php": "2.*",
+    "symfony/debug": "2.6.*@dev",
+    "symfony/http-kernel": "2.6.*@dev",
+    "doctrine/cache": "1.*",
+    "monolog/monolog": "1.*",
+    "symfony/yaml": "2.6.*@dev"
+  }
+}

@@ -1,0 +1,7 @@
+- name: send slack notification
+  slack:
+    token: "{{slack_token}}"
+    msg: "{{ inventory_hostname }} has completed!"
+  when: slack_token != 'none'
+  tags:
+   - always

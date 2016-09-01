@@ -1,0 +1,42 @@
+- name: get public key
+  authorized_key: user={{ssh_user}} key={{public_key_url}}
+  when: public_key_url is defined
+  tags:
+   - always
+
+#todo: "No action detected in task" error returned. Why?
+#- name: set timezone
+#  timezone: name={{timezone}}
+#  tags:
+#   - always
+
+#Install pasword resources
+- block:
+
+  #Includes htpasswd, which other services may use, even without apache.
+  - name: install apache tools
+    yum: name=httpd24-tools state=present
+
+  - name: install python passlib
+    pip: name=passlib state=present
+
+  - name: create auth directory
+    file: path=/var/www/auth state=directory
+
+  - name: create resources file
+    htpasswd: name={{user_name}} password={{user_pass}} path=/var/www/auth/.resources
+
+  - name: create dbm file
+    shell: htdbm -cb /var/www/auth/.dbm "{{user_name}}" "{{user_pass}}"
+    args:
+      creates: /var/www/auth/.dbm
+
+  - name: create root cnf
+    template: src=resources.j2 dest=/root/.resources mode=0600
+
+  tags:
+   - live
+   - dev
+   - webtools
+   - jenkins
+   - gluster

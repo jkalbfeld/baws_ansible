@@ -1,0 +1,19 @@
+- stat: path=/etc/init.d/codedeploy-agent
+  register: codedeploy
+  tags:
+   - codedeploy
+
+- name: download code deploy
+  s3:
+   bucket: aws-codedeploy-{{ansible_ec2_placement_region}}
+   object: /latest/install
+   dest: /opt/codedeploy_install
+   mode: get
+  notify:
+   - adjust code deploy sleep
+   - code deploy mode
+   - code deploy install
+   - code deploy cleanup
+  when: not codedeploy.stat.exists
+  tags:
+   - codedeploy

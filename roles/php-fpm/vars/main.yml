@@ -1,0 +1,34 @@
+pool_dev_name: www-dev
+pool_stage_name: www-stage
+pool_live_name: www-live
+pool_bb_name: burrisx
+
+php_dev_port: 9003
+php_stage_port: 9002
+php_live_port: 9001
+php_bb_port: 9010
+
+php_dev_addr: 127.0.0.1
+php_stage_addr: 127.0.0.1
+php_live_addr: 127.0.0.1
+php_bb_addr: 127.0.0.1
+
+php_dev_memory: 384M
+php_stage_memory: 256M
+php_live_memory: 256M
+php_bb_memory: 384M
+
+php_dev_errors: on
+php_stage_errors: on
+php_live_errors: off
+php_bb_errors: off
+
+php_dev_session: /var/lib/php/5.6/session-dev
+php_stage_session: /var/lib/php/5.6/session-stage
+php_live_session: /var/lib/php/5.6/session-live
+php_bb_session: /var/lib/php/5.6/session-burrisx
+
+php_dev_log: /var/log/php-fpm/5.6/wwwdev-error.log
+php_stage_log: /var/log/php-fpm/5.6/wwwstage-error.log
+php_live_log: /var/log/php-fpm/5.6/wwwlive-error.log
+php_bb_log: /var/log/php-fpm/5.6/burrisx-error.log

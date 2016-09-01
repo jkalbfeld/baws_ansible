@@ -1,0 +1,10 @@
+---
+- name: install memcached
+  yum: name=memcached
+  notify:
+   - enable memcached
+   - monitor memcached
+   - restart memcached
+  tags:
+   - memcached
+...

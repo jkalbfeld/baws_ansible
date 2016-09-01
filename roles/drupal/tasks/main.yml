@@ -1,0 +1,16 @@
+- stat: path=/usr/bin/drush
+  register: drush
+  tags:
+   - drush
+   - dev
+   - burris_builder
+
+- name: install drush
+  get_url: url=http://files.drush.org/drush.phar dest=/usr/bin/drush mode=ugo+x
+  notify:
+   - initial drush run
+  when: not drush.stat.exists
+  tags:
+   - drush
+   - dev
+   - burris_builder

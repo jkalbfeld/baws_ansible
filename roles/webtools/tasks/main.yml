@@ -1,0 +1,64 @@
+---
+
+- name: install patch
+  yum: name=patch state=present
+  tags:
+   - dev
+
+- name: install npm
+  yum: name=npm state=present enablerepo=epel
+  notify:
+   - install npm grunt
+   - install npm bower
+  tags:
+   - dev
+   - npm
+
+#Install Webmin
+- block:
+  - name: install webmin
+    copy: src=webmin.repo dest=/etc/yum.repos.d/webmin.repo
+
+  - name: import jcameron key
+    rpm_key: key=http://www.webmin.com/jcameron-key.asc state=present
+
+  - name: install webmin yum
+    yum: name=webmin state=present
+
+  tags:
+   - webmin
+
+
+
+#PMA Block
+- block:
+
+  - name: phpmyadmin folder
+    file: path=/opt owner=ec2-user state=directory
+
+  - name: setup phpmyadmin
+    become_user: ec2-user
+    shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev  --no-ansi --no-interaction --no-progress
+    args:
+      chdir: /opt
+      creates: /opt/phpmyadmin/index.php
+  tags:
+   - webtools
+   - pma
+
+#Opcache block
+- block:
+
+  - name: crudely check for opcache
+    stat: path=/opt/opcache/index.php
+    register: opcache
+
+  - name: clear opcache directory
+    file: path=/opt/opcache state=absent
+    when: not opcache.stat.exists
+    notify:
+     - clone opcache
+  tags:
+   - devtools
+   - opcache
+...

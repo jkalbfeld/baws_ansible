@@ -1,0 +1,16 @@
+- name: adjust code deploy sleep
+  lineinfile:
+   dest: /opt/codedeploy_install
+   regexp: '^sleep(.*)'
+   line: 'sleep(10)'
+   state: present
+
+- name: code deploy mode
+  file: path=/opt/codedeploy_install mode=a+x state=file
+
+- name: code deploy install
+  shell: /opt/codedeploy_install auto
+  when: not codedeploy.stat.exists
+
+- name: code deploy cleanup
+  file: path=/opt/codedeploy_install state=absent

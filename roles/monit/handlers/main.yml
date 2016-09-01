@@ -1,0 +1,20 @@
+- name: activate monit host
+  copy: src=host.cfg dest=/etc/monit.d/host.cfg
+
+- name: monitor nginx
+  copy: src=nginx.cfg dest=/etc/monit.d/nginx.cfg
+
+- name: monitor php-fpm
+  copy: src=php-fpm.cfg dest=/etc/monit.d/php-fpm.cfg
+
+- name: monitor solr
+  copy: src=solr.cfg dest=/etc/monit.d/solr.cfg
+
+- name: monitor memcached
+  copy: src=memecached.cfg dest=/etc/monit.d/memcached.cfg
+
+- name: enable monit boot
+  service: name=monit enabled=yes state=started
+
+- name: restart monit
+  service: name=monit state=restarted

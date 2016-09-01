@@ -1,0 +1,6 @@
+ssh_user: ec2-user
+user_email: admin@localhost.com
+user_pass: "{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16') }}"
+user_name: admin
+slack_token: none
+slack_channel: servers

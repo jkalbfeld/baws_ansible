@@ -1,0 +1,11 @@
+- name: enable glusterd
+  service: name=glsuterd enabled=yes state=started
+
+- name: enable rpcbind
+  service: name=rpcbind enabled=yes state=started
+
+- name: restart rpcbind
+  service: name=rpcbind state=restarted
+
+- name: restart glusterd
+  service: name=glusterd state=restarted

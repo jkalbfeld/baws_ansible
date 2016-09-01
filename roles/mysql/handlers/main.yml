@@ -1,0 +1,21 @@
+- name: install my cnf
+  copy: src=my.cnf dest=/etc
+
+- name: enable mysql boot
+  service: name=mysqld enabled=yes state=started
+
+- name: installing pip mysql
+  pip: name=MySQL-python state=present
+
+- name: restart mysql
+  service: name=mysqld state=restarted
+
+- name: create root pass
+  mysql_user:
+   name: root
+   password: "{{local_mysql_root}}"
+   host: localhost
+   check_implicit_admin: yes
+
+- name: create root cnf
+  template: src=root.cnf.j2 dest=/root/.my.cnf mode=0600

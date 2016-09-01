@@ -1,0 +1,2 @@
+- name: enable jenkins boot
+  service: name=jenkins enabled=yes state=started

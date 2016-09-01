@@ -1,0 +1,3 @@
+builder_db: bb-{{ansible_ec2_instance_id}}
+builder_mysql: localhost
+builder_pass: "{{ lookup('password', '/tmp/bbpass chars=ascii_letters length=16') }}"

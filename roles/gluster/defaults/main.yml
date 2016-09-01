@@ -1,0 +1,6 @@
+gfs_gb: 20
+gfs_type: gp2
+gfs_device: /dev/sdf
+gfs_fs: xfs
+gfs_mount: /mnt/gfs
+gfs_hosts: tag_gluster_server

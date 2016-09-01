@@ -1,0 +1,7 @@
+---
+- name: install aws logs
+  yum: name=awslogs state=present
+  notify:
+   - enable awslogs boot
+  when: "'amazon' in ansible_product_version"
+...

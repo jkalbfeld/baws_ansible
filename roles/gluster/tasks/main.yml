@@ -1,0 +1,36 @@
+- block:
+  - name: install gluster server dependencies
+    yum:
+      name: "{{ item }}"
+      enablerepo: epel
+      state: present
+    with_items:
+     - userspace-rcu-devel
+     - libcmocka-devel
+     - libacl-devel
+
+  - name: copy gluster repo
+    template: src=gluster.repo.j2 dest=/etc/yum.repos.d/glusterfs-epel.repo
+    vars:
+     release: 6
+
+  - name: install fuse
+    yum: name=glusterfs-fuse state=present
+
+  tags:
+     - gluster_server
+     - gluster_client
+
+- include: ebs.yml
+  vars:
+    volume_type: "{{gfs_type}}"
+    gb: "{{gfs_gb}}"
+    mount_point: "{{gfs_mount}}"
+    device: "{{gfs_device}}"
+    fs_type: "{{gfs_fs}}"
+  tags:
+   - gluster_server
+
+- name: create mount directory
+  file: path={{mount_point}} state=directory
+  when: gfs.mount changed

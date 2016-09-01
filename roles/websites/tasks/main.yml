@@ -1,0 +1,21 @@
+#Install grav
+- block:
+
+  - name: create default html directory
+    file: path=/var/www/html state=directory owner=ec2-user group=nginx
+
+  - name: install grav via composer
+    become_user: "{{ssh_user}}"
+    shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project getgrav/grav default  --no-dev  --no-ansi --no-interaction --no-progress
+    notify:
+     - symlink grav
+     - restart nginx
+    args:
+      creates: /var/www/html/default/index.php
+      chdir: /var/www/html
+
+  - name: default directory nginx ownership
+    file: path=/var/www/html/default owner=nginx group=nginx
+
+  tags:
+   - grav

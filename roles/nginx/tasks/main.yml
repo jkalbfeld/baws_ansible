@@ -1,0 +1,115 @@
+---
+
+- name: stat nginx git repo before
+  stat: path=/etc/nginx/.git
+  register: nginx_repo
+  tags:
+   - dev
+   - live
+   - default
+
+
+#General nginx install
+- block:
+
+  - name: install nginx
+    yum: name=nginx state=present
+    notify:
+     - enable nginx boot
+     - monitor nginx
+     - restart nginx
+
+  - name: nginx config
+    file: path=/etc/nginx state=absent
+    when: not nginx_repo.stat.exists
+
+  - name: clone nginx config
+    git:
+      repo: https://github.com/wwwpro/nginx.git
+      dest: /etc/nginx
+    when: not nginx_repo.stat.exists
+
+  - name: create nginx ssl directory
+    file: path=/etc/nginx/ssl state=directory
+
+  - name: create nginx self signed certificate
+    shell: openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=. /ST=. /L=. /O=. /CN=localhost"
+    args:
+      creates: /etc/nginx/ssl/nginx.crt
+
+  - name: create microcache directory
+    file: path=/var/cache/nginx/microcache state=directory
+
+  tags:
+   - dev
+   - live
+
+
+- name: stat nginx git repo before
+  stat: path=/etc/nginx/.git
+  register: nginx_post
+  tags:
+   - live
+   - status
+   - default_site
+
+
+#Either status or default can be linked for status.
+#Linking both will cause warnings, but not problems.
+- name: symlink ping
+  file:
+   src: /etc/nginx/sites-available/status.conf
+   dest: /etc/nginx/sites-enabled/status.conf
+   state: link
+  when: nginx_post.stat.exists
+  tags:
+   - live
+   - status
+
+- name: symlink default
+  file:
+   src: /etc/nginx/sites-available/default.conf
+   dest: /etc/nginx/sites-enabled/default.conf
+   state: link
+  when: nginx_post.stat.exists
+  tags:
+   - default_site
+   - dev
+
+- name: stat app drive
+  stat: path=/www
+  register: appdrive
+  tags:
+   - dev
+   - appdrive
+   - live
+
+- name: symlink volume
+  file:
+   src: /etc/nginx/sites-available/volumes/www.conf
+   dest: /etc/nginx/sites-enabled/www.conf
+   state: link
+  when: appdrive.stat.exists
+  tags:
+   - dev
+   - live
+   - appdrive
+
+- name: symlink builder
+  file:
+   src: /etc/nginx/sites-available/burris_builder.conf
+   dest: /etc/nginx/sites-enabled/burris_builder.conf
+   state: link
+  tags:
+   - burris_builder
+
+- name: symlink opcache
+  file:
+   src: /etc/nginx/sites-available/opcache.conf
+   dest: /etc/nginx/sites-enabled/opcache.conf
+   state: link
+  tags:
+   - dev
+   - opcache
+
+...

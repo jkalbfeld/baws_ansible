@@ -1,0 +1,53 @@
+
+- block:
+  - name: create builder database
+    mysql_db: name={{builder_db}} state=present
+
+  - name: create builder user
+    mysql_user: name={{builder_db}} password={{builder_pass}} priv={{builder_db}}.*:ALL state=present
+
+  - name: create bb directory
+    file: path=/opt/burris_builder state=directory owner=burrisx group=nginx
+
+  - name: create aws composer
+    copy: src=composer.json dest=/opt/burris_builder/
+
+  - name: create bb make
+    copy: src=burris_builder.make dest=/opt/burris_builder/burris_builder.make
+
+  - name: create builder key
+    shell: /usr/bin/openssl rand -base64 48 > /var/www/auth/.burris_key
+    args:
+      creates: /var/www/auth/.burris_key
+
+  - name: make bb site
+    become_user: burrisx
+    command: /usr/bin/drush make -y burris_builder.make
+    args:
+      chdir: /opt/burris_builder
+      creates: /opt/burris_builder/index.php
+
+  - name: install bb aws sdk
+    become_user: burrisx
+    command: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer install --prefer-source --no-ansi --no-interaction --no-progress
+    args:
+      chdir: /opt/burris_builder
+      creates: /opt/burris_builder/composer.lock
+
+  - name: install builder drush
+    become_user: burrisx
+    shell: /usr/bin/drush site-install -y standard --db-url="mysql://{{ builder_db }}:{{ builder_pass }}@{{ builder_mysql }}/{{ builder_db }}" --account-mail="{{ user_email }}" --site-mail="{{ user_email }}" --site-name="Burris Builder" --db-su-pw="{{ builder_pass }}" --account-name="{{ user_name }}" --account-pass="{{ user_pass }}"
+    notify:
+     - manage bb modules
+     - set bb users
+     - set bb db
+    args:
+      chdir: /opt/burris_builder
+      creates: /opt/burris_builder/sites/default/settings.php
+
+  - name: create builder file
+    template: src=builder.j2 dest=/root/.builder mode=0600
+
+
+  tags:
+   - burris_builder

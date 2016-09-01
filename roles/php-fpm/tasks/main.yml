@@ -1,0 +1,163 @@
+---
+
+#todo: PHP7.
+
+- name: install php packages
+  yum: name={{ item }} state=installed
+  with_items:
+  - php56
+  - php56-dba
+  - php56-devel
+  - php56-gd
+  - php56-intl
+  - php56-mbstring
+  - php56-mysqlnd
+  - php56-opcache
+  - php56-pdo
+  - php56-pecl-http
+  - php56-pecl-http-devel
+  - php56-pecl-imagick
+  - php56-jsonc
+  - php56-jsonc-devel
+  - php56-pecl-ssh2
+  - php56-soap
+  - php56-tidy
+  - php56-xmlrpc
+  - php56-pecl-memcache
+  - php56-pecl-memcached
+  notify:
+   - set pecl vars
+   - set pear vars
+  tags:
+   - dev
+   - live
+   - php
+  register: php
+
+- name: install php-fpm
+  yum: name=php56-fpm state=installed
+  notify:
+   - restart php-fpm
+   - enable php-fpm boot
+   - monitor php-fpm
+  tags:
+   - dev
+   - live
+   - php-fpm
+
+#This is primarily for php cli (composer) since pools contain their own memory setting.
+- name: set php memory limit
+  lineinfile:
+   dest: /etc/php.ini
+   regexp: '^memory_limit = 128M'
+   line: 'memory_limit = 512M'
+   state: present
+
+
+#Create composer ini before xdebug is installed
+- name: create composer ini
+  copy: src=/etc/php.ini dest=/etc/php-composer.ini
+  when: php.changed
+  tags:
+   - dev
+
+#Setup session directories
+- name: dev session
+  file: path=/var/lib/php/5.6/session-dev state=directory owner=nginx group=nginx mode=0770
+  tags:
+   - dev
+
+- name: stage session
+  file: path=/var/lib/php/5.6/session-stage state=directory owner=nginx group=nginx mode=0770
+  tags:
+   - dev
+
+- name: live session
+  file: path=/var/lib/php/5.6/session-live state=directory owner=nginx group=nginx mode=0770
+  tags:
+   - dev
+   - live
+
+- name: builder session
+  file: path=/var/lib/php/5.6/session-burrisx state=directory owner=nginx group=nginx mode=0770
+  tags:
+   - burris_builder
+
+
+#Setup Pools
+- name: www dev conf
+  template: src=www.conf.j2 dest=/etc/php-fpm.d/www-dev.conf
+  vars:
+    pool_name: "{{ pool_dev_name }}"
+    php_port: "{{ php_dev_port }}"
+    php_addr: "{{ php_dev_addr }}"
+    php_memory: "{{ php_dev_memory }}"
+    php_errors: "{{ php_dev_errors }}"
+    php_session: "{{ php_dev_session }}"
+    php_log: "{{ php_dev_log }}"
+  notify:
+   - restart php-fpm
+  tags:
+  - dev
+
+- name: www stage conf
+  template: src=www.conf.j2 dest=/etc/php-fpm.d/www-stage.conf
+  vars:
+    pool_name: "{{ pool_stage_name }}"
+    php_port: "{{ php_stage_port }}"
+    php_addr: "{{ php_stage_addr }}"
+    php_memory: "{{ php_stage_memory }}"
+    php_errors: "{{ php_stage_errors }}"
+    php_session: "{{ php_stage_session }}"
+    php_log: "{{ php_stage_log }}"
+  notify:
+     - restart php-fpm
+  tags:
+  - dev
+
+- name: www live conf
+  template: src=www.conf.j2 dest=/etc/php-fpm.d/www.conf
+  vars:
+    pool_name: "{{ pool_live_name }}"
+    php_port: "{{ php_live_port }}"
+    php_addr: "{{ php_live_addr }}"
+    php_memory: "{{ php_live_memory }}"
+    php_errors: "{{ php_live_errors }}"
+    php_session: "{{ php_live_session }}"
+    php_log: "{{ php_live_log }}"
+  notify:
+     - restart php-fpm
+  tags:
+  - dev
+  - live
+
+- name: burrisx conf
+  template: src=www.conf.j2 dest=/etc/php-fpm.d/burrisx.conf
+  vars:
+    pool_name: "{{ pool_bb_name }}"
+    php_port: "{{ php_bb_port }}"
+    php_addr: "{{ php_bb_addr }}"
+    php_memory: "{{ php_bb_memory }}"
+    php_errors: "{{ php_bb_errors }}"
+    php_session: "{{ php_bb_session }}"
+    php_log: "{{ php_bb_log }}"
+  notify:
+     - restart php-fpm
+  tags:
+  - burris_builder
+
+- block:
+
+  - name: stat xdebug
+    stat: path=/usr/lib64/php/5.6/modules/xdebug.so
+    register: xdebug
+
+  - name: install xdebug
+    command: /usr/bin/pecl install xdebug
+    when: not xdebug.stat.exists
+
+  tags:
+   - dev
+
+
+...

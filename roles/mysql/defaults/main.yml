@@ -1,0 +1,1 @@
+local_mysql_root: "{{ lookup('password', '/tmp/pass chars=ascii_letters length=16') }}"

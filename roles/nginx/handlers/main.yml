@@ -1,0 +1,24 @@
+- name: enable nginx boot
+  service: name=nginx enabled=yes state=started
+
+- name: symlink default site
+  file:
+   src: /etc/nginx/sites-available/default.conf
+   dest: /etc/nginx/sites-enabled/default.conf
+   state: link
+
+- name: symlink pma
+  file:
+   src: /etc/nginx/sites-available/pma.conf
+   dest: /etc/nginx/sites-enabled/pma.conf
+   state: link
+
+- name: symlink grav
+  file:
+    src: /etc/nginx/sites-available/default.conf
+    dest: /etc/nginx/sites-enabled/default.conf
+    state: link
+  when: nginx_repo.stat.exists
+
+- name: restart nginx
+  service: name=nginx state=restarted

@@ -1,0 +1,37 @@
+- name: create gluster ebs
+  ec2_vol:
+     volume_size: "{{gb}}"
+     volume_type: "{{volume_type}}"
+     device_name: "{{device}}"
+     region: "{{ansible_ec2_placement_region}}"
+     zone: "{{ansible_ec2_placement_availability_zone}}"
+     instance: "{{ansible_ec2_instance_id}}"
+     state: present
+  register: gfs_vol
+
+- name: format new ebs drive
+  filesystem:
+    fstype: "{{fs_type}}"
+    dev: "{{device}}"
+
+- name: create mount directory
+  file: path={{mount_point}} state=directory
+
+- name: mount gluster client drive
+  mount:
+    name: "{{mount_point}}"
+    src: "{{device}}"
+    fstype: "{{fs_type}}"
+    state: mounted
+  register: gfsmount
+  when: not gfs_backup is defined
+
+- name: mount gluster client drive with backup
+  mount:
+    name: "{{mount_point}}"
+    src: "{{device}}"
+    fstype: "{{fs_type}}"
+    opts: direct-io-mode=disable,backupvolfile-server={{gfs_backup}}
+    state: mounted
+  register: gfsmount
+  when: gfs_backup is defined

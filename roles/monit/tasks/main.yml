@@ -1,0 +1,22 @@
+---
+- block:
+
+  - name: install monit
+    yum: name=monit state=present
+    notify:
+     - activate monit host
+     - enabled monit boot
+
+  - name: set alert file
+    template: src=alert.cfg.j2 dest=/etc/monit.d
+
+  - name: set email config
+    template: src=mail.cfg.j2 dest=/etc/mail.cfg
+    when: ses_user != none
+
+  tags:
+   - dev
+   - live
+   - mysql
+   - gluster
+...

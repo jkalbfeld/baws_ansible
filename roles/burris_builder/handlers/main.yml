@@ -1,0 +1,35 @@
+- name: manage bb modules
+  become_user: burrisx
+  shell: /usr/bin/drush {{item}}
+  args:
+    chdir: /opt/burris_builder
+  with_items:
+   - dis -y overlay toolbar color comment update path
+   - en -y ember devel libraries jquery_update navbar ctools views module_filter build_site burris_aws burris_clone burris_utilities burris_views
+   - vset theme_default ember
+
+- name: set bb users
+  become_user: burrisx
+  shell: /usr/bin/drush {{item}}
+  args:
+    chdir: /opt/burris_builder
+  with_items:
+   - vset build_site_cms_admin 1
+   - vset build_site_root_email "{{ user_email }}"
+   - vset build_site_from_addy "{{ user_email }}"
+   - vset build_site_root_user "{{ user_name }}"
+
+- name: set bb db
+  become_user: burrisx
+  shell: /usr/bin/drush {{item}}
+  args:
+    chdir: /opt/burris_builder
+  with_items:
+   - vset build_site_db_instance_dev "{{ builder_db }}"
+   - vset build_site_db_instance_stage "{{ builder_db }}"
+   - vset build_site_db_instance_live "{{ builder_db }}"
+   - vset build_site_db_user_dev "{{ builder_db }}"
+   - vset build_site_db_user_stage "{{ builder_db }}"
+   - vset build_site_db_user_dev "{{ builder_db }}" chdir=/opt/burris_builder
+  when: not builder_db == 'localhost'
+
