@@ -1,7 +1,16 @@
 ---
-- name: install aws logs
-  yum: name=awslogs state=present
-  notify:
-   - enable awslogs boot
+-block:
+
+  - name: install aws logs
+    yum: name=awslogs state=present
+    notify:
+     - enable awslogs boot
+
+  - name: create aws logs conf
+    copy: src=awslogs.conf dest=/etc/awslogs/awslogs.conf
+
   when: "'amazon' in ansible_product_version"
+  tags:
+   - live
+   - awslogs
 ...

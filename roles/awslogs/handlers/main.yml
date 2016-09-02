@@ -1,2 +1,5 @@
 - name: enable awslogs boot
   service: name=awslogs enabled=yes
+
+- name: restart aws logs
+  service: name=awslogs state=restarted
