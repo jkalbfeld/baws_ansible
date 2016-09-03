@@ -74,7 +74,6 @@
   when: nginx_post.stat.exists
   tags:
    - default_site
-   - dev
 
 - name: stat app drive
   stat: path=/www
