@@ -9,7 +9,7 @@
   - name: create aws logs conf
     copy: src=awslogs.conf dest=/etc/awslogs/awslogs.conf
 
-  when: "'amazon' in ansible_product_version"
+  when: 'amazon' in ansible_product_version
   tags:
    - live
    - awslogs
