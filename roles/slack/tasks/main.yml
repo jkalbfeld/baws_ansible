@@ -1,7 +1,7 @@
 - name: send slack notification
   slack:
     token: "{{slack_token}}"
-    msg: "{{ inventory_hostname }} has completed!"
+    msg: "{{ ansible_default_ipv4.address }} has completed!"
   when: slack_token != 'none'
   tags:
    - always
