@@ -162,15 +162,20 @@
 - block:
 
   - name: stat xdebug
-    stat: path=/usr/lib64/php/5.6/modules/xdebug.so
+    stat: path=/usr/lib64/php/7.0/modules/xdebug.so
     register: xdebug
 
   - name: install xdebug
     command: /usr/bin/pecl7 install xdebug
     when: not xdebug.stat.exists
+    register: xdebug_install
+
+  - name: chmod xdebug
+    file: path=/usr/lib64/php/7.0/modules/xdebug.so mode=o+x
+    when: xdebug_install.changed
 
   tags:
    - dev
-
+   - xdebug
 
 ...
