@@ -44,7 +44,7 @@
       creates: /opt/phpmyadmin/index.php
 
   - name: create pma config
-    template: src=pma.conf.js dest=/opt/pma/config.inc.php
+    template: src=pma.conf.j2 dest=/opt/pma/config.inc.php
     vars:
      hosts: "{{pma_hosts}}"
     when: pma_hosts is defined
