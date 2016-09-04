@@ -39,10 +39,18 @@
   - name: setup phpmyadmin
     become_user: ec2-user
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev  --no-ansi --no-interaction --no-progress
-    notify: symlink pma
+    notify:
+     - symlink pma
+     - restart nginx
     args:
       chdir: /opt
       creates: /opt/phpmyadmin/index.php
+
+  - name: setup pma dirs
+    file: path={{item}} state=directory owner=nginx group=nginx
+    with_items:
+     - /var/www/pmadump
+     - /var/www/pmasave
 
   - name: create pma config
     template: src=pma.conf.j2 dest=/opt/phpmyadmin/config.inc.php

@@ -1,9 +1,5 @@
 <?php
-/* vim: set expandtab sw=4 ts=4 sts=4: */
 /**
- * phpMyAdmin sample configuration, you can use it as base for
- * manual configuration. For easier setup you can use setup/
- *
  * All directives are explained in documentation in the doc/ folder
  * or at <https://docs.phpmyadmin.net/>.
  *
@@ -14,22 +10,22 @@
  * This is needed for cookie based authentication to encrypt password in
  * cookie. Needs to be 32 chars long.
  */
-$cfg['blowfish_secret'] = '"{{ lookup('password', '/tmp/pmasalt chars=ascii_letters length=32') }}"'; /* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
+$cfg['blowfish_secret'] = '"{{ lookup('password', '/tmp/pmasalt chars=ascii_letters length=32') }}"';
+/* YOU MUST FILL IN THIS FOR COOKIE AUTH! */
 
 /**
  * Servers configuration
  */
-$i = 0;
 
 {% for host in hosts %}
 
 /* Authentication type */
-$cfg['Servers'][loop.index ]['auth_type'] = 'cookie';
+$cfg['Servers'][{{loop.index -1 }} ]['auth_type'] = 'cookie';
 
-$cfg['Servers'][{{ loop.index }}]['host'] = '{{host}}';
-$cfg['Servers'][{{ loop.index }}]['connect_type'] = 'tcp';
-$cfg['Servers'][{{ loop.index }}]['compress'] = false;
-$cfg['Servers'][{{ loop.index }}]['AllowNoPassword'] = false;
+$cfg['Servers'][{{ loop.index - 1 }}]['host'] = '{{host}}';
+$cfg['Servers'][{{ loop.index - 1 }}]['connect_type'] = 'tcp';
+$cfg['Servers'][{{ loop.index - 1 }}]['compress'] = false;
+$cfg['Servers'][{{ loop.index - 1 }}]['AllowNoPassword'] = false;
 
 
 {% endfor %}
@@ -38,6 +34,7 @@ $cfg['Servers'][{{ loop.index }}]['AllowNoPassword'] = false;
 /**
  * Directories for saving/loading files from server
  */
+
 $cfg['UploadDir'] = '{{pma_upload}}';
 $cfg['SaveDir'] = '{{pma_save}}';
 
