@@ -24,12 +24,13 @@ $i = 0;
 {% for host in hosts %}
 
 /* Authentication type */
-$cfg['Servers'][$i]['auth_type'] = 'cookie';
+$cfg['Servers'][loop.index ]['auth_type'] = 'cookie';
 
 $cfg['Servers'][{{ loop.index }}]['host'] = '{{host}}';
 $cfg['Servers'][{{ loop.index }}]['connect_type'] = 'tcp';
 $cfg['Servers'][{{ loop.index }}]['compress'] = false;
 $cfg['Servers'][{{ loop.index }}]['AllowNoPassword'] = false;
+
 
 {% endfor %}
 
