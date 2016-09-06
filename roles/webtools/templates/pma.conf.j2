@@ -20,12 +20,12 @@ $cfg['blowfish_secret'] = '"{{ lookup('password', '/tmp/pmasalt chars=ascii_lett
 {% for host in hosts %}
 
 /* Authentication type */
-$cfg['Servers'][{{loop.index -1 }} ]['auth_type'] = 'cookie';
+$cfg['Servers'][{{loop.index}}]['auth_type'] = 'cookie';
 
-$cfg['Servers'][{{ loop.index - 1 }}]['host'] = '{{host}}';
-$cfg['Servers'][{{ loop.index - 1 }}]['connect_type'] = 'tcp';
-$cfg['Servers'][{{ loop.index - 1 }}]['compress'] = false;
-$cfg['Servers'][{{ loop.index - 1 }}]['AllowNoPassword'] = false;
+$cfg['Servers'][{{ loop.index}}]['host'] = '{{host}}';
+$cfg['Servers'][{{ loop.index}}]['connect_type'] = 'tcp';
+$cfg['Servers'][{{ loop.index}}]['compress'] = false;
+$cfg['Servers'][{{ loop.index}}]['AllowNoPassword'] = false;
 
 
 {% endfor %}
