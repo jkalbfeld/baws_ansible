@@ -5,28 +5,7 @@
   remote_user: "{{ssh_user}}"
   become: true
   pre_tasks:
-  - name: update all yum packages
-    yum:
-      name: "*"
-      state: latest
-    tags:
-     - always
 
-  - name: install basic packages
-    yum: name={{ item }} state=installed
-    with_items:
-    - gcc
-    - gcc-c++
-    - jemalloc
-    - jemalloc-devel
-    tags:
-     - always
-
-  - name: install yum cron
-    yum: name=yum-cron state=installed
-    register: yumcron
-    tags:
-     - always
 
   roles:
   - common
