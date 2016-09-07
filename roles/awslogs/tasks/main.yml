@@ -5,6 +5,7 @@
     yum: name=awslogs state=present
     notify:
      - enable awslogs boot
+     - restart awslogs
 
   - name: create aws logs conf
     copy: src=awslogs.conf dest=/etc/awslogs/awslogs.conf
