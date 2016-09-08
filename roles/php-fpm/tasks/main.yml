@@ -18,6 +18,7 @@
   - php70-pecl-imagick
   - php70-pecl-memcache
   - php70-pecl-memcached
+  - php70-pecl-oauth
   - php70-pecl-ssh2
   - php70-pecl-uuid
   - php70-pecl-yaml
