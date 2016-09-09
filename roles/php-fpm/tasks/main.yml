@@ -6,26 +6,26 @@
   yum: name={{ item }} state=installed
   with_items:
   - php7-pear
-  - php70
-  - php70-dba
-  - php70-devel
-  - php70-gd
-  - php70-intl
-  - php70-mbstring
-  - php70-mysqlnd
-  - php70-opcache
-  - php70-pdo
-  - php70-pecl-imagick
-  - php70-pecl-memcache
-  - php70-pecl-memcached
-  - php70-pecl-oauth
-  - php70-pecl-ssh2
-  - php70-pecl-uuid
-  - php70-pecl-yaml
-  - php70-soap
-  - php70-tidy
-  - php70-xmlrpc
-  - php70-zip
+  - php56
+  - php56-dba
+  - php56-devel
+  - php56-gd
+  - php56-intl
+  - php56-mbstring
+  - php56-mysqlnd
+  - php56-opcache
+  - php56-pdo
+  - php56-pecl-imagick
+  - php56-pecl-memcache
+  - php56-pecl-memcached
+  - php56-pecl-oauth
+  - php56-pecl-ssh2
+  - php56-pecl-uuid
+  - php56-pecl-yaml
+  - php56-soap
+  - php56-tidy
+  - php56-xmlrpc
+  - php56-zip
   tags:
    - dev
    - live
@@ -33,7 +33,7 @@
   register: php
 
 - name: install php-fpm
-  yum: name=php70-fpm state=installed
+  yum: name=php56-fpm state=installed
   notify:
    - restart php-fpm
    - enable php-fpm boot
@@ -77,23 +77,23 @@
 
 #Setup session directories
 - name: dev session
-  file: path=/var/lib/php/70/session-dev state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/56/session-dev state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
 
 - name: stage session
-  file: path=/var/lib/php/70/session-stage state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/56/session-stage state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
 
 - name: live session
-  file: path=/var/lib/php/70/session-live state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/56/session-live state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
    - live
 
 - name: builder session
-  file: path=/var/lib/php/70/session-burrisx state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/56/session-burrisx state=directory owner=nginx group=nginx mode=0770
   tags:
    - burris_builder
 
