@@ -13,7 +13,7 @@
   - name: switch aws region
     lineinfile:
       dest: /etc/awslogs/awscli.conf
-      stage: present
+      state: present
       regexp: '^region = us-east-1'
       line: "region = {{ansible_ec2_placement_region}}"
     notify:
