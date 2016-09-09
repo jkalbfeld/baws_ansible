@@ -166,12 +166,12 @@
     register: xdebug
 
   - name: install xdebug
-    command: /usr/bin/pecl7 install xdebug
+    command: /usr/bin/pecl install xdebug
     when: not xdebug.stat.exists
     register: xdebug_install
 
   - name: chmod xdebug
-    file: path=/usr/lib64/php/7.0/modules/xdebug.so mode=o+x
+    file: path=/usr/lib64/php/5.6/modules/xdebug.so mode=o+x
     when: xdebug_install.changed
 
   tags:
