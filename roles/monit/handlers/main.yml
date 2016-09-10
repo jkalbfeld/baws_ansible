@@ -4,7 +4,10 @@
 - name: monitor nginx
   copy: src=nginx.cfg dest=/etc/monit.d/nginx.cfg
 
-- name: monitor php-fpm
+- name: monitor php-fpm 56
+  copy: src=php-fpm56.cfg dest=/etc/monit.d/php-fpm.cfg
+
+- name: monitor php-fpm 70
   copy: src=php-fpm.cfg dest=/etc/monit.d/php-fpm.cfg
 
 - name: monitor solr

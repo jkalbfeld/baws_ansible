@@ -33,9 +33,9 @@
   - name: install php-fpm
     yum: name=php70-fpm state=installed
     notify:
-     - restart php-fpm
-     - enable php-fpm boot
-     - monitor php-fpm
+     - restart php-fpm 70
+     - enable php-fpm boot 70
+     - monitor php-fpm 70
     tags:
      - dev
      - live

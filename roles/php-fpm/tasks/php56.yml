@@ -26,8 +26,9 @@
     - php56-pecl-memcache
     - php56-pecl-memcached
     notify:
-     - set pecl vars
-     - set pear vars
+     - enable php-fpm 56 boot
+     - restart php-fpm 56
+     - monitor php-fpm 56
     tags:
      - dev
      - live
