@@ -1,46 +1,45 @@
-- name: install php 70 packages
-  yum: name={{ item }} state=installed
-  with_items:
-  - php7-pear
-  - php70
-  - php70-dba
-  - php70-devel
-  - php70-gd
-  - php70-intl
-  - php70-mbstring
-  - php70-mysqlnd
-  - php70-opcache
-  - php70-pdo
-  - php70-pecl-imagick
-  - php70-pecl-memcache
-  - php70-pecl-memcached
-  - php70-pecl-oauth
-  - php70-pecl-ssh2
-  - php70-pecl-uuid
-  - php70-pecl-yaml
-  - php70-soap
-  - php70-tidy
-  - php70-xmlrpc
-  - php70-zip
-  tags:
-   - dev
-   - live
-   - php
-  register: php
+- block:
 
-- name: install php-fpm
-  yum: name=php70-fpm state=installed
-  notify:
-   - restart php-fpm
-   - enable php-fpm boot
-   - monitor php-fpm
-  tags:
-   - dev
-   - live
-   - php-fpm
+  - name: install php 70 packages
+    yum: name={{ item }} state=installed
+    with_items:
+    - php7-pear
+    - php70
+    - php70-dba
+    - php70-devel
+    - php70-gd
+    - php70-intl
+    - php70-mbstring
+    - php70-mysqlnd
+    - php70-opcache
+    - php70-pdo
+    - php70-pecl-imagick
+    - php70-pecl-memcache
+    - php70-pecl-memcached
+    - php70-pecl-oauth
+    - php70-pecl-ssh2
+    - php70-pecl-uuid
+    - php70-pecl-yaml
+    - php70-soap
+    - php70-tidy
+    - php70-xmlrpc
+    - php70-zip
+    tags:
+     - dev
+     - live
+     - php
+    register: php
 
-
-
+  - name: install php-fpm
+    yum: name=php70-fpm state=installed
+    notify:
+     - restart php-fpm
+     - enable php-fpm boot
+     - monitor php-fpm
+    tags:
+     - dev
+     - live
+     - php-fpm
 
   - block:
 
