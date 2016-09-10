@@ -1,14 +1,11 @@
 ---
 
+# Includes are dynamic now, so tasks run according to php_version,
+# which is set by default -in defaults- to 70.
+
 - include: php56.yml
-  tags:
-   - php56
 
 - include: php70.yml
-  tags:
-   - php70
-
-
 
 #Setup session directories
 - name: dev session
@@ -58,7 +55,7 @@
     php_memory: "{{ php_stage_memory }}"
     php_errors: "{{ php_stage_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php-version}}/wwwstage-error.log"
+    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
   notify:
      - restart php-fpm
   tags:
@@ -73,7 +70,7 @@
     php_memory: "{{ php_live_memory }}"
     php_errors: "{{ php_live_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php-version}}/wwwstage-error.log"
+    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
   notify:
      - restart php-fpm
   tags:
@@ -89,7 +86,7 @@
     php_memory: "{{ php_bb_memory }}"
     php_errors: "{{ php_bb_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php-version}}/wwwstage-error.log"
+    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
   notify:
      - restart php-fpm
   tags:
