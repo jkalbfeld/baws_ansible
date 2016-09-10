@@ -1,4 +1,4 @@
-- name: install php packages
+- name: install php 70 packages
   yum: name={{ item }} state=installed
   with_items:
   - php7-pear

@@ -2,7 +2,7 @@
 
 #todo: PHP7.
 
-- name: install php packages
+- name: install php 56 packages
   yum: name={{ item }} state=installed
   with_items:
   - php56
