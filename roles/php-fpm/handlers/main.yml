@@ -3,7 +3,7 @@
   shell: /usr/bin/pear config-set php_ini /etc/php.ini
 
 - name: enable php-fpm boot
-  service: name=php-fpm-7.0 enabled=yes
+  service: name=php-fpm-5.6 enabled=yes
 
 - name: restart php-fpm
-  service: name=php-fpm-7.0 state=restarted
+  service: name=php-fpm-5.6 state=restarted
