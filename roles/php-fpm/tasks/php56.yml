@@ -1,0 +1,79 @@
+---
+
+#todo: PHP7.
+
+- name: install php packages
+  yum: name={{ item }} state=installed
+  with_items:
+  - php56
+  - php56-dba
+  - php56-devel
+  - php56-gd
+  - php56-intl
+  - php56-mbstring
+  - php56-mysqlnd
+  - php56-opcache
+  - php56-pdo
+  - php56-pecl-http
+  - php56-pecl-http-devel
+  - php56-pecl-imagick
+  - php56-jsonc
+  - php56-jsonc-devel
+  - php56-pecl-ssh2
+  - php56-soap
+  - php56-tidy
+  - php56-xmlrpc
+  - php56-pecl-memcache
+  - php56-pecl-memcached
+  notify:
+   - set pecl vars
+   - set pear vars
+  tags:
+   - dev
+   - live
+   - php
+  register: php
+
+- name: install php-fpm
+  yum: name=php56-fpm state=installed
+  notify:
+   - restart php-fpm
+   - enable php-fpm boot
+   - monitor php-fpm
+  tags:
+   - dev
+   - live
+   - php-fpm
+
+#This is primarily for php cli (composer) since pools contain their own memory setting.
+- name: set php memory limit
+  lineinfile:
+   dest: /etc/php.ini
+   regexp: '^memory_limit = 128M'
+   line: 'memory_limit = 512M'
+   state: present
+
+
+#Create composer ini before xdebug is installed
+- name: create composer ini
+  copy: src=/etc/php.ini dest=/etc/php-composer.ini
+  when: php.changed
+  tags:
+   - dev
+
+
+- block:
+
+  - name: stat xdebug
+    stat: path=/usr/lib64/php/5.6/modules/xdebug.so
+    register: xdebug
+
+  - name: install xdebug
+    command: /usr/bin/pecl install xdebug
+    when: not xdebug.stat.exists
+
+  tags:
+   - dev
+
+
+...

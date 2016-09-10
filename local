@@ -1,5 +1,2 @@
 [webservers]
 localhost
-
-[nfs]
-localhost

@@ -1,0 +1,93 @@
+- name: install php packages
+  yum: name={{ item }} state=installed
+  with_items:
+  - php7-pear
+  - php70
+  - php70-dba
+  - php70-devel
+  - php70-gd
+  - php70-intl
+  - php70-mbstring
+  - php70-mysqlnd
+  - php70-opcache
+  - php70-pdo
+  - php70-pecl-imagick
+  - php70-pecl-memcache
+  - php70-pecl-memcached
+  - php70-pecl-oauth
+  - php70-pecl-ssh2
+  - php70-pecl-uuid
+  - php70-pecl-yaml
+  - php70-soap
+  - php70-tidy
+  - php70-xmlrpc
+  - php70-zip
+  tags:
+   - dev
+   - live
+   - php
+  register: php
+
+- name: install php-fpm
+  yum: name=php70-fpm state=installed
+  notify:
+   - restart php-fpm
+   - enable php-fpm boot
+   - monitor php-fpm
+  tags:
+   - dev
+   - live
+   - php-fpm
+
+
+#Set pecl and pear vars for easy install of things like xdebug.
+- block:
+
+  - name: set pecl 7 vars
+    command: /usr/bin/pecl7 config-set php_ini /etc/php.ini
+
+  - name: set pear 7 vars
+    command: /usr/bin/pear7 config-set php_ini /etc/php.ini
+
+  when: php.changed
+  tags:
+   - dev
+   - live
+
+
+#This is primarily for php cli (composer) since pools contain their own memory setting.
+- name: set php memory limit
+  lineinfile:
+   dest: /etc/php.ini
+   regexp: '^memory_limit = 128M'
+   line: 'memory_limit = 512M'
+   state: present
+
+
+#Create composer ini before xdebug is installed
+- name: create composer ini
+  copy: src=/etc/php.ini dest=/etc/php-composer.ini
+  when: php.changed
+  tags:
+   - dev
+
+- block:
+
+  - name: stat xdebug
+    stat: path=/usr/lib64/php/7.0/modules/xdebug.so
+    register: xdebug
+
+  - name: install xdebug
+    command: /usr/bin/pecl7 install xdebug
+    when: not xdebug.stat.exists
+    register: xdebug_install
+
+  - name: chmod xdebug
+    file: path=/usr/lib64/php/7.0/modules/xdebug.so mode=o+x
+    when: xdebug_install.changed
+
+  tags:
+   - dev
+   - xdebug
+
+...
