@@ -40,7 +40,7 @@
     php_memory: "{{ php_dev_memory }}"
     php_errors: "{{ php_dev_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-dev"
-    php_log: "/var/log/php/{{{php_version}}/wwwdev-error.log"
+    php_log: "/var/log/php/{{php_version}}/wwwdev-error.log"
   notify:
    - restart php-fpm
   tags:
@@ -55,7 +55,7 @@
     php_memory: "{{ php_stage_memory }}"
     php_errors: "{{ php_stage_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
+    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
   notify:
      - restart php-fpm
   tags:
@@ -70,7 +70,7 @@
     php_memory: "{{ php_live_memory }}"
     php_errors: "{{ php_live_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
+    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
   notify:
      - restart php-fpm
   tags:
