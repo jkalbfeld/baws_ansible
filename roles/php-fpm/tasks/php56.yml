@@ -26,7 +26,7 @@
     - php56-pecl-memcache
     - php56-pecl-memcached
     notify:
-     - enable php-fpm 56 boot
+     - enable php-fpm 56
      - restart php-fpm 56
      - monitor php-fpm 56
     tags:
