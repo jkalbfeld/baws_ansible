@@ -1,5 +1,2 @@
 [webservers]
 tag_ansible_web_stage
-
-[nfs]
-tag_ansible_nfs_stage

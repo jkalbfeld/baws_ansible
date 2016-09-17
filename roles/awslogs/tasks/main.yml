@@ -5,9 +5,20 @@
     yum: name=awslogs state=present
     notify:
      - enable awslogs boot
+     - restart awslogs
 
   - name: create aws logs conf
     copy: src=awslogs.conf dest=/etc/awslogs/awslogs.conf
+
+  - name: switch aws region
+    lineinfile:
+      dest: /etc/awslogs/awscli.conf
+      state: present
+      regexp: '^region = us-east-1'
+      line: "region = {{ansible_ec2_placement_region}}"
+    notify:
+    - restart awslogs
+
 
   when: "'amazon' in ansible_product_version"
   tags:

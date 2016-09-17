@@ -1,3 +1,4 @@
+
 pool_dev_name: www-dev
 pool_stage_name: www-stage
 pool_live_name: www-live
@@ -22,13 +23,3 @@ php_dev_errors: on
 php_stage_errors: on
 php_live_errors: off
 php_bb_errors: off
-
-php_dev_session: /var/lib/php/70/session-dev
-php_stage_session: /var/lib/php/70/session-stage
-php_live_session: /var/lib/php/70/session-live
-php_bb_session: /var/lib/php/70/session-burrisx
-
-php_dev_log: /var/log/php-fpm/70/wwwdev-error.log
-php_stage_log: /var/log/php-fpm/70/wwwstage-error.log
-php_live_log: /var/log/php-fpm/70/wwwlive-error.log
-php_bb_log: /var/log/php-fpm/70/burrisx-error.log

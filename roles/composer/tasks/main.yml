@@ -3,6 +3,13 @@
   - stat: path=/usr/local/bin/composer
     register: composer
 
+  - stat: path=/usr/local/bin/composer-setup.php
+    register: composer_setup
+
+  - name: delete previously failed composer install
+    file: path=/usr/local/bin/composer-setup.php state=absent
+    when: composer_setup.stat.exists
+
   - name: get composer
     get_url:
      url: https://getcomposer.org/installer

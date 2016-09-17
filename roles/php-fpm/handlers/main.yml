@@ -2,8 +2,15 @@
 - name: set pear vars
   shell: /usr/bin/pear config-set php_ini /etc/php.ini
 
-- name: enable php-fpm boot
+- name: enable php-fpm 56
+  service: name=php-fpm-5.6 enabled=yes
+
+- name: restart php-fpm 56
+  service: name=php-fpm-5.6 state=restarted
+
+
+- name: enable php-fpm 70
   service: name=php-fpm-7.0 enabled=yes
 
-- name: restart php-fpm
+- name: restart php-fpm 70
   service: name=php-fpm-7.0 state=restarted

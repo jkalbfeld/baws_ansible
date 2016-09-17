@@ -1,98 +1,31 @@
 ---
 
-#todo: PHP7.
+# Includes are dynamic now, so tasks run according to php_version,
+# which is set by default -in defaults- to 70.
 
-- name: install php packages
-  yum: name={{ item }} state=installed
-  with_items:
-  - php7-pear
-  - php70
-  - php70-dba
-  - php70-devel
-  - php70-gd
-  - php70-intl
-  - php70-mbstring
-  - php70-mysqlnd
-  - php70-opcache
-  - php70-pdo
-  - php70-pecl-imagick
-  - php70-pecl-memcache
-  - php70-pecl-memcached
-  - php70-pecl-ssh2
-  - php70-pecl-uuid
-  - php70-pecl-yaml
-  - php70-soap
-  - php70-tidy
-  - php70-xmlrpc
-  - php70-zip
-  tags:
-   - dev
-   - live
-   - php
-  register: php
+- include: php56.yml
 
-- name: install php-fpm
-  yum: name=php70-fpm state=installed
-  notify:
-   - restart php-fpm
-   - enable php-fpm boot
-   - monitor php-fpm
-  tags:
-   - dev
-   - live
-   - php-fpm
-
-
-#Set pecl and pear vars for easy install of things like xdebug.
-- block:
-
-  - name: set pecl vars
-    command: /usr/bin/pecl7 config-set php_ini /etc/php.ini
-
-  - name: set pear vars
-    command: /usr/bin/pear7 config-set php_ini /etc/php.ini
-
-  when: php.changed
-  tags:
-   - dev
-   - live
-
-
-#This is primarily for php cli (composer) since pools contain their own memory setting.
-- name: set php memory limit
-  lineinfile:
-   dest: /etc/php.ini
-   regexp: '^memory_limit = 128M'
-   line: 'memory_limit = 512M'
-   state: present
-
-
-#Create composer ini before xdebug is installed
-- name: create composer ini
-  copy: src=/etc/php.ini dest=/etc/php-composer.ini
-  when: php.changed
-  tags:
-   - dev
+- include: php70.yml
 
 #Setup session directories
 - name: dev session
-  file: path=/var/lib/php/70/session-dev state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/{{php_version}}/session-dev state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
 
 - name: stage session
-  file: path=/var/lib/php/70/session-stage state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/{{php_version}}/session-stage state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
 
 - name: live session
-  file: path=/var/lib/php/70/session-live state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/{{php_version}}/session-live state=directory owner=nginx group=nginx mode=0770
   tags:
    - dev
    - live
 
 - name: builder session
-  file: path=/var/lib/php/70/session-burrisx state=directory owner=nginx group=nginx mode=0770
+  file: path=/var/lib/php/{{php_version}}/session-burrisx state=directory owner=nginx group=nginx mode=0770
   tags:
    - burris_builder
 
@@ -106,10 +39,8 @@
     php_addr: "{{ php_dev_addr }}"
     php_memory: "{{ php_dev_memory }}"
     php_errors: "{{ php_dev_errors }}"
-    php_session: "{{ php_dev_session }}"
-    php_log: "{{ php_dev_log }}"
-  notify:
-   - restart php-fpm
+    php_session: "/var/lib/php/{{php_version}}/session-dev"
+    php_log: "/var/log/php/{{php_version}}/wwwdev-error.log"
   tags:
   - dev
 
@@ -121,10 +52,8 @@
     php_addr: "{{ php_stage_addr }}"
     php_memory: "{{ php_stage_memory }}"
     php_errors: "{{ php_stage_errors }}"
-    php_session: "{{ php_stage_session }}"
-    php_log: "{{ php_stage_log }}"
-  notify:
-     - restart php-fpm
+    php_session: "/var/lib/php/{{php_version}}/session-stage"
+    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
   tags:
   - dev
 
@@ -136,10 +65,8 @@
     php_addr: "{{ php_live_addr }}"
     php_memory: "{{ php_live_memory }}"
     php_errors: "{{ php_live_errors }}"
-    php_session: "{{ php_live_session }}"
-    php_log: "{{ php_live_log }}"
-  notify:
-     - restart php-fpm
+    php_session: "/var/lib/php/{{php_version}}/session-stage"
+    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
   tags:
   - dev
   - live
@@ -152,30 +79,9 @@
     php_addr: "{{ php_bb_addr }}"
     php_memory: "{{ php_bb_memory }}"
     php_errors: "{{ php_bb_errors }}"
-    php_session: "{{ php_bb_session }}"
-    php_log: "{{ php_bb_log }}"
-  notify:
-     - restart php-fpm
+    php_session: "/var/lib/php/{{php_version}}/session-stage"
+    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
   tags:
   - burris_builder
-
-- block:
-
-  - name: stat xdebug
-    stat: path=/usr/lib64/php/7.0/modules/xdebug.so
-    register: xdebug
-
-  - name: install xdebug
-    command: /usr/bin/pecl7 install xdebug
-    when: not xdebug.stat.exists
-    register: xdebug_install
-
-  - name: chmod xdebug
-    file: path=/usr/lib64/php/7.0/modules/xdebug.so mode=o+x
-    when: xdebug_install.changed
-
-  tags:
-   - dev
-   - xdebug
 
 ...
