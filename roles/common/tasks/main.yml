@@ -7,7 +7,7 @@
 
 #todo: "No action detected in task" error returned. Why?
 #- name: set timezone
-#  timezone: name={{timezone}}
+#  timezone: name={{time_zone}}
 #  tags:
 #   - always
 
