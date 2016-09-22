@@ -1,6 +1,6 @@
 - block:
 
-  - name: update all yum packages
+  - name: update all apt packages
     apt: upgrade=full autoremove=yes
 
   - name: install basic packages

@@ -6,8 +6,8 @@
    - restart monit
 
 - name: set alert file
- template: src=alert.cfg.j2 dest=/etc/monit.d/alert.cfg
+  template: src=alert.cfg.j2 dest=/etc/monit.d/alert.cfg
 
 - name: set email config
- template: src=mail.cfg.j2 dest=/etc/monit.d/mail.cfg
- when: ses_user != none
+  template: src=mail.cfg.j2 dest=/etc/monit.d/mail.cfg
+  when: ses_user != none
