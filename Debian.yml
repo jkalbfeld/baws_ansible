@@ -4,14 +4,14 @@
       apt:
         upgrade: full
   - name: install basic packages
-    yum: name={{ item }} state=installed
+    apt: name={{ item }} state=installed
     with_items:
     - gcc
     - g++
     - lbjemalloc-dev
 
   - name: install yum cron
-    yum: name=yum-cron state=installed
+    apt: name=yum-cron state=installed
     register: yumcron
 
   tags:
