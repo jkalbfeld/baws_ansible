@@ -1,20 +1,20 @@
 - name: activate monit host
-  copy: src=host.cfg dest=/etc/monit.d/host.cfg
+  copy: src=host.cfg dest={{monit_dir}}/host.cfg
 
 - name: monitor nginx
-  copy: src=nginx.cfg dest=/etc/monit.d/nginx.cfg
+  copy: src=nginx.cfg dest={{monit_dir}}/nginx.cfg
 
 - name: monitor php-fpm 56
-  copy: src=php-fpm56.cfg dest=/etc/monit.d/php-fpm.cfg
+  copy: src=php-fpm56.cfg dest={{monit_dir}}/php-fpm.cfg
 
 - name: monitor php-fpm 70
-  copy: src=php-fpm.cfg dest=/etc/monit.d/php-fpm.cfg
+  copy: src=php-fpm.cfg dest={{monit_dir}}/php-fpm.cfg
 
 - name: monitor solr
-  copy: src=solr.cfg dest=/etc/monit.d/solr.cfg
+  copy: src=solr.cfg dest={{monit_dir}}/solr.cfg
 
 - name: monitor memcached
-  copy: src=memecached.cfg dest=/etc/monit.d/memcached.cfg
+  copy: src=memecached.cfg dest={{monit_dir}}/memcached.cfg
 
 - name: enable monit boot
   service: name=monit enabled=yes state=started

@@ -6,6 +6,9 @@
   become: true
   pre_tasks:
 
+  - name: group by os family
+    group_by: "family_{{ansible_os_family}}"
+
   - include: "{{ansible_os_family}}.yml"
 
   roles:
