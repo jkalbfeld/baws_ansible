@@ -5,18 +5,39 @@
     tags:
      - always
 
-  - name: install basic packages
-    yum: name={{ item }} state=installed
-    with_items:
-    - gcc
-    - gcc-c++
-    - jemalloc
-    - jemalloc-devel
-    tags:
-     - always
+- name: install basic packages
+  yum: name={{ item }} state=installed
+  with_items:
+  - gcc
+  - gcc-c++
+  - jemalloc
+  - jemalloc-devel
+  tags:
+   - always
 
-  - name: install yum cron
-    yum: name=yum-cron state=installed
-    register: yumcron
-    tags:
-     - always
+- name: install yum cron
+  yum: name=yum-cron state=installed
+  register: yumcron
+  tags:
+   - always
+
+handlers:
+- name: sed yum cron
+  lineinfile:
+   dest: /etc/yum/yum-cron.conf
+   state: present
+   regexp: '^apply_updates = no'
+   line: 'apply_updates = yes'
+  when: yumcron.changed
+  tags:
+   - always
+
+- name: sed yum security
+  lineinfile:
+   dest: /etc/yum/yum-cron.conf
+   state: present
+   regexp: '^update_cmd = default'
+   line: 'update_cmd = security'
+  when: yumcron.changed
+  tags:
+   - live

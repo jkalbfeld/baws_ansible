@@ -6,46 +6,8 @@
   become: true
   pre_tasks:
 
+  - include: {{ansible_os_family}}
 
   roles:
-  - common
-  - users
-  - ec2
-  - codedeploy
-  - awslogs
-  - apache
-  - mysql
-  - nginx
-  - php-fpm
-  - composer
-  - drupal
-  - burris_builder
-  - wp
-  - webtools
-  - websites
-  - monit
-  - gluster
-  - jenkins
-  - slack
-
-  handlers:
-  - name: sed yum cron
-    lineinfile:
-     dest: /etc/yum/yum-cron.conf
-     state: present
-     regexp: '^apply_updates = no'
-     line: 'apply_updates = yes'
-    when: yumcron.changed
-    tags:
-     - always
-
-  - name: sed yum security
-    lineinfile:
-     dest: /etc/yum/yum-cron.conf
-     state: present
-     regexp: '^update_cmd = default'
-     line: 'update_cmd = security'
-    when: yumcron.changed
-    tags:
-     - live
+   - nginx
 ...
