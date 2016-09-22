@@ -4,3 +4,6 @@
    - enable nginx boot
    - monitor nginx
    - restart nginx
+  tags:
+   - dev
+   - live
