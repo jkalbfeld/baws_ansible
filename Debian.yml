@@ -1,7 +1,7 @@
 - block:
 
   - name: update all yum packages
-      apt: upgrade=full
+    apt: upgrade=full
 
   - name: install basic packages
     apt: name={{ item }} state=installed
