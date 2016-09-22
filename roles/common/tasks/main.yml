@@ -1,3 +1,9 @@
+- name: gather ec2 facts
+  action: ec2_facts
+  tags:
+   - always
+
+
 - name: get public key
   authorized_key: user={{ssh_user}} key={{public_key_url}}
   when: public_key_url is defined

@@ -1,9 +1,3 @@
-- name: gather ec2 facts
-  action: ec2_facts
-  tags:
-   - always
-
-
 #Mount EFS, not to be confused with EBS.
 
 - block:
