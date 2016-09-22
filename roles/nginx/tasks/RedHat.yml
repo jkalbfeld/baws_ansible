@@ -1,0 +1,6 @@
+- name: install nginx
+  yum: name=nginx state=present
+  notify:
+   - enable nginx boot
+   - monitor nginx
+   - restart nginx

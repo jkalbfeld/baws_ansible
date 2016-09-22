@@ -1,14 +1,15 @@
 - block:
 
   - name: update all yum packages
-    apt: upgrade=full
+    apt: upgrade=full autoremove=yes
 
   - name: install basic packages
     apt: name={{ item }} state=installed
     with_items:
     - gcc
     - g++
-    - lbjemalloc-dev
+    - libjemalloc1
+    - libjemalloc-dev
 
   - name: install yum cron
     apt: name=yum-cron state=installed

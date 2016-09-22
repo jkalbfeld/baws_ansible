@@ -9,15 +9,10 @@
    - default
 
 
+- include: "{{ansible_os_family}}.yml"
+
 #General nginx install
 - block:
-
-  - name: install nginx
-    yum: name=nginx state=present
-    notify:
-     - enable nginx boot
-     - monitor nginx
-     - restart nginx
 
   - name: nginx config
     file: path=/etc/nginx state=absent
