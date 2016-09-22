@@ -11,9 +11,5 @@
     - libjemalloc1
     - libjemalloc-dev
 
-  - name: install yum cron
-    apt: name=yum-cron state=installed
-    register: yumcron
-
   tags:
    - always
