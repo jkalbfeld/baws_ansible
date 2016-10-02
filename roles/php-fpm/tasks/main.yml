@@ -3,8 +3,6 @@
 # Includes are dynamic now, so tasks run according to php_version,
 # which is set by default -in defaults- to 70.
 
-- include: php56.yml
-
 - include: php70.yml
 
 #Setup session directories
