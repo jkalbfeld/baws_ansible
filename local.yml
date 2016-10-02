@@ -1,29 +1,13 @@
 --- #Sets up server from ansible pull.
 
-- name: local
+- name: setup server
   hosts: localhost
-  tasks:
-   - name: establish groups
-     group_by: key=family_{{ansible_os_family}}
-
-
-- name: setup debian
-  hosts: family_Debian
   remote_user: "{{ssh_user}}"
   become: true
   pre_tasks:
+
   - include: "{{ansible_os_family}}.yml"
+
   roles:
    - nginx
-
-
-- name: setup red hat
-  hosts: family_RedHat
-  remote_user: "{{ssh_user}}"
-  become: true
-  pre_tasks:
-  - include: "{{ansible_os_family}}.yml"
-  roles:
-   - nginx
-
 ...
