@@ -1,6 +1,6 @@
 --- #Sets up server from ansible pull.
 
-- name: blarg
+- name: local
   hosts: localhost
   tasks:
    - name: establish groups
