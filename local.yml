@@ -4,10 +4,8 @@
   hosts: localhost
   remote_user: "{{ssh_user}}"
   become: true
+  group_by: key=family_{{ansible_os_family}}
   pre_tasks:
-
-  - include_vars: "family_{{ansible_os_family}}"
-
   - include: "{{ansible_os_family}}.yml"
 
   roles:
