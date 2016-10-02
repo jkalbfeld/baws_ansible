@@ -6,7 +6,7 @@
   become: true
   pre_tasks:
 
-  - group_by: key=family_{{ansible_os_family}}
+  - include_vars: "family_{{ansible_os_family}}"
 
   - include: "{{ansible_os_family}}.yml"
 
