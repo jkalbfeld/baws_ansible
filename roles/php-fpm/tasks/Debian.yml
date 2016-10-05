@@ -1,37 +1,36 @@
-- name: install language pack to avoid ondrej errors
-  apt: name=language-pack-en-base state=present
+- block:
 
-- name: get ondrej repo
-  apt_repository: repo=ppa:ondrej/php state=present update_cache=yes
+  - name: install language pack to avoid ondrej errors
+    apt: name=language-pack-en-base state=present
+
+  - name: get ondrej repo
+    apt_repository: repo=ppa:ondrej/php state=present update_cache=yes
 
 
-- name: install php 70 packages
-  apt: name={{ item }} state=installed
-  with_items:
-  - php-pear
-  - php7.0-common
-  - php7.0-cli
-  - php7.0-gd
-  - php7.0-intl
-  - php7.0-mbstring
-  - php7.0-mysqlnd
-  - php7.0-opcache
-  - php7.0-soap
-  - php7.0-tidy
-  - php7.0-xmlrpc
-  - php7.0-zip
-  tags:
-   - dev
-   - live
-   - php
-  register: php
+  - name: install php 70 packages
+    apt: name={{ item }} state=installed
+    with_items:
+    - php-pear
+    - php7.0-common
+    - php7.0-cli
+    - php7.0-gd
+    - php7.0-intl
+    - php7.0-mbstring
+    - php7.0-mysqlnd
+    - php7.0-opcache
+    - php7.0-soap
+    - php7.0-tidy
+    - php7.0-xmlrpc
+    - php7.0-zip
+    register: php
 
-- name: install php-fpm
-  apt: name=php7.0-fpm state=installed
-  notify:
-   - restart php-fpm 70
-   - enable php-fpm 70
-   - monitor php-fpm 70
+  - name: install php-fpm
+    apt: name=php7.0-fpm state=installed
+    notify:
+     - restart php-fpm 70
+     - enable php-fpm 70
+     - monitor php-fpm 70
+
   tags:
    - dev
    - live
