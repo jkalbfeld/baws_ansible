@@ -2,7 +2,7 @@
   apt: name=language-pack-en-base state=present
 
 - name: get ondrej repo
-  apt_repo: repo=ppa:ondrej/php state=present update_cache=yes
+  apt_repository: repo=ppa:ondrej/php state=present update_cache=yes
 
 
 - name: install php 70 packages
