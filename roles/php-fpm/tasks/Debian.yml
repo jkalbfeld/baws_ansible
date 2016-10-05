@@ -74,7 +74,7 @@
     register: xdebug
 
   - name: install xdebug
-    command: /usr/bin/pecl7 install xdebug
+    command: /usr/bin/pecl install xdebug
     when: not xdebug.stat.exists
     register: xdebug_install
 
