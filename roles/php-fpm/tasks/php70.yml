@@ -18,8 +18,6 @@
     tags:
      - dev
 
-  when: php_version == 70
-
 - block:
 
   - name: stat xdebug
@@ -38,6 +36,5 @@
   tags:
    - dev
    - xdebug
-  when: php_version == 70
 
 ...
