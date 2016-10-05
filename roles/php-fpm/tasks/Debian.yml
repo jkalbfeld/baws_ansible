@@ -39,10 +39,10 @@
 - block:
 
   - name: set pecl 7 vars
-    command: /usr/bin/pecl config-set php_ini /etc/php.ini
+    command: /usr/bin/pecl config-set php_ini /etc/php/7.0/fpm/php.ini
 
   - name: set pear 7 vars
-    command: /usr/bin/pear config-set php_ini /etc/php.ini
+    command: /usr/bin/pear config-set php_ini /etc/php/7.0/fpm/php.ini
 
   when: php.changed
   tags:
@@ -52,17 +52,17 @@
 #This is primarily for php cli (composer) since pools contain their own memory setting.
 - name: set php memory limit
   lineinfile:
-    dest: /etc/php.ini
+    dest: /etc/php/7.0/fpm/php.ini
     regexp: '^memory_limit = 128M'
     line: 'memory_limit = 512M'
     state: present
   tags:
-   - dev
+   - devs
    - live
 
 #Create composer ini before xdebug is installed
 - name: create composer ini
-  copy: src=/etc/php.ini dest=/etc/php-composer.ini
+  copy: src=/etc/php/7.0/fpm/php.ini dest=/etc/php/7.0/fpm/php-composer.ini
   when: php.changed
   tags:
    - dev

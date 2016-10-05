@@ -39,7 +39,6 @@
    - live
    - php-fpm
 
-
 - block:
 
   - name: set pecl 7 vars
