@@ -1,10 +1,7 @@
 ---
 
-#PHP Installs.
+#PHP Install and settings.
 - include: "{{ansible_os_family}}.yml"
-
-#PHP Settings.
-- include: php70.yml
 
 #Setup session directories
 - name: dev session
