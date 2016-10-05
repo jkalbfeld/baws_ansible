@@ -43,10 +43,10 @@
 - block:
 
   - name: set pecl 7 vars
-    command: /usr/bin/pecl7 config-set php_ini /etc/php.ini
+    command: /usr/bin/pecl config-set php_ini /etc/php.ini
 
   - name: set pear 7 vars
-    command: /usr/bin/pear7 config-set php_ini /etc/php.ini
+    command: /usr/bin/pear config-set php_ini /etc/php.ini
 
   when: php.changed
   tags:

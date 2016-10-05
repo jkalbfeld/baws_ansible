@@ -1,18 +1,5 @@
 - block:
 
-  - block:
-
-    - name: set pecl 7 vars
-      command: /usr/bin/pecl7 config-set php_ini /etc/php.ini
-
-    - name: set pear 7 vars
-      command: /usr/bin/pear7 config-set php_ini /etc/php.ini
-
-    when: php.changed
-    tags:
-     - dev
-     - live
-
   #This is primarily for php cli (composer) since pools contain their own memory setting.
   - name: set php memory limit
     lineinfile:
