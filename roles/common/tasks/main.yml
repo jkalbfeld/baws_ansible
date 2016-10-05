@@ -9,10 +9,11 @@
   tags:
    - always
 
-- name: set timezone
-  timezone: name=America/Los_Angeles
-  tags:
-   - always
+#@todo Causes syntax errors. Why?
+#- name: set timezone
+#  timezone: name=America/Los_Angeles
+#  tags:
+#   - always
 
 
 - include: "{{ansible_os_family}}.yml"
