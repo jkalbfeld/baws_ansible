@@ -1,0 +1,10 @@
+
+#Includes htpasswd, which other services may use, even without apache.
+- name: install apache tools
+  yum: name=httpd24-tools state=present
+  tags:
+   - live
+   - dev
+   - webtools
+   - jenkins
+   - gluster

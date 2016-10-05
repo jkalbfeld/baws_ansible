@@ -1,0 +1,17 @@
+- block:
+
+ - name: install pip
+   apt:
+     name: "{{item}}"
+     state: present
+   with_items:
+    - python-pip
+    - python-dev
+    - build-essential
+
+  tags:
+   - live
+   - dev
+   - webtools
+   - jenkins
+   - gluster

@@ -3,26 +3,22 @@
   tags:
    - always
 
-
 - name: get public key
   authorized_key: user={{ssh_user}} key={{public_key_url}}
   when: public_key_url is defined
   tags:
    - always
 
+- name: set timezone
+  timezone: name={{time_zone}}
+  tags:
+   - always
 
-#todo: "No action detected in task" error returned. Why?
-#- name: set timezone
-#  timezone: name={{time_zone}}
-#  tags:
-#   - always
+
+- include: "{{ansible_os_family}}.yml"
 
 #Install pasword resources
 - block:
-
-  #Includes htpasswd, which other services may use, even without apache.
-  - name: install apache tools
-    yum: name=httpd24-tools state=present
 
   - name: install python passlib
     pip: name=passlib state=present
