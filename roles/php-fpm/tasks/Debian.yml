@@ -71,7 +71,7 @@
 - block:
 
   - name: stat xdebug
-    stat: path=/usr/lib64/php/7.0/modules/xdebug.so
+    stat: path=/usr/lib/php/20151012/xdebug.so
     register: xdebug
 
   - name: install xdebug
