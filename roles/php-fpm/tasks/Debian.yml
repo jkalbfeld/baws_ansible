@@ -80,7 +80,7 @@
     register: xdebug_install
 
   - name: chmod xdebug
-    file: path=/usr/lib64/php/7.0/modules/xdebug.so mode=o+x
+    file: path=/usr/lib/php/20151012/xdebug.so mode=o+x
     when: xdebug_install.changed
 
   tags:
