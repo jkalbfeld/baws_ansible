@@ -1,8 +1,9 @@
 ---
 
-# Includes are dynamic now, so tasks run according to php_version,
-# which is set by default -in defaults- to 70.
+#PHP Installs.
+- include: "{{ansible_os_family}}.yml"
 
+#PHP Settings.
 - include: php70.yml
 
 #Setup session directories
