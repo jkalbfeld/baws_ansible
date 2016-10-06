@@ -1,44 +1,31 @@
 ---
-- name: create burrisx group
-  group: name=burrisx state=present
-  tags:
-   - dev
-   - live
-   - composer
+- block:
 
-- name: create burrisx user
-  user: name=burrisx group=burrisx
-  tags:
-   - dev
-   - live
-   - composer
+  - name: create burrisx group
+    group: name=burrisx state=present
 
-- name: add ec2-user to burrisx
-  user: name=ec2-user group=burrisx
-  tags:
-   - dev
-   - live
-   - composer
+  - name: create burrisx user
+    user: name=burrisx group=burrisx
 
-- name: add burrisx as a sudoer
-  become: true
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^burrisx'
-    line: 'burrisx  ALL = NOPASSWD: ALL'
-  tags:
-   - dev
-   - live
-   - composer
+  - name: add ec2-user to burrisx
+    user: name=ec2-user group=burrisx
 
-- name: remove tty requirement for burrisx
-  become: true
-  lineinfile:
-    dest: /etc/sudoers
-    state: present
-    regexp: '^Defaults:burrisx'
-    line: 'Defaults:burrisx !requiretty'
+  - name: add burrisx as a sudoer
+    become: true
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^burrisx'
+      line: 'burrisx  ALL = NOPASSWD: ALL'
+
+  - name: remove tty requirement for burrisx
+    become: true
+    lineinfile:
+      dest: /etc/sudoers
+      state: present
+      regexp: '^Defaults:burrisx'
+      line: 'Defaults:burrisx !requiretty'
+
   tags:
    - dev
    - live

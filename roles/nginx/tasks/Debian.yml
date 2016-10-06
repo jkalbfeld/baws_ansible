@@ -1,9 +1,17 @@
-- name: install nginx
-  apt: name=nginx state=present
-  notify:
-   - enable nginx boot
-   - monitor nginx
-   - restart nginx
+- block:
+  - name: install nginx
+    apt: name=nginx state=present
+    notify:
+     - enable nginx boot
+     - monitor nginx
+     - restart nginx
+
+  - name: create nginx group
+    group: name=nginx state=present
+
+  - name: create nginx user
+    user: name=nginx group=nginx state=present
+
   tags:
    - dev
    - live
