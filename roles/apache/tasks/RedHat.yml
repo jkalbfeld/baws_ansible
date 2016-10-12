@@ -2,7 +2,6 @@
   yum: name={{item}} state=present
   with_items:
    - httpd24
-#   - httpd24-tools
    - perl-CPAN
    - perl-Authen-PAM
    - mod24_ssl
