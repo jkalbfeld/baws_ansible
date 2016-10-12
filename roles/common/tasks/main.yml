@@ -15,8 +15,10 @@
 - block:
 
   #Includes htpasswd, which other services may use, even without apache.
+  #It may already be installed, so we ignore.
   - name: install apache tools
     yum: name=httpd24-tools state=present
+    ignore_errors: true
 
   - name: install python passlib
     pip: name=passlib state=present
