@@ -18,10 +18,32 @@
 - name: install devel tools
   yum: name=httpd24-devel state=present
   notify:
-   - clone authenz
-   - create authenz install files
-   - activate authenz
-   - authen cleanup
    - restart apache
+  tags:
+   - webdav
+
+- name: stat authen
+  stat: path=/usr/lib64/httpd/modules/mod_authnz_external.so
+  register: authen
+
+- block:
+
+  - name: cloning authenz
+    git:
+     repo: https://github.com/phokz/mod-auth-external.git
+     dest: /opt/authen
+
+  #This always spits out warnings.
+  - name: creating authenz install files
+    shell: apxs -c /opt/authen/mod_authnz_external/mod_authnz_external.c
+    ignore_errors: true
+
+  - name: activating authenz
+    shell: apxs -i -a /opt/authen/mod_authnz_external/mod_authnz_external.la
+
+  - name: authen cleanup
+    file: path=/opt/authen state=absent
+
+  when: not authen.stat.exists
   tags:
    - webdav
