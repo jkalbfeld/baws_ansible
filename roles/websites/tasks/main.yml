@@ -16,6 +16,8 @@
 
   - name: default directory nginx ownership
     file: path=/var/www/html/default owner=nginx group=nginx
-
+    
+  notify:
+   - symlink default dav
   tags:
    - grav
