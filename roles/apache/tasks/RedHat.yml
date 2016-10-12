@@ -1,5 +1,3 @@
-include: vars/RedHat.yml
-
 - name: install apache
   yum: name={{item}} state=present
   with_items:
