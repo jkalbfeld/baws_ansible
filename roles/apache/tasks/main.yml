@@ -1,31 +1,5 @@
-- name: install apache
-  yum: name={{item}} state=present
-  with_items:
-   - httpd24
-   - httpd24-tools
-   - perl-CPAN
-   - perl-Authen-PAM
-   - mod24_ssl
-   - perl-libwww-perl
-   - perl-App-cpanminus
-  notify:
-   - enable apache boot
-   - restart apache
-  tags:
-   - apache
-   - webdav
 
-#devel includes apxs, which allows authen install
-- name: install devel tools
-  yum: name=httpd24-devel state=present
-  notify:
-   - clone authenz
-   - create authenz install files
-   - activate authenz
-   - authen cleanup
-   - restart apache
-  tags:
-   - webdav
+include: "{{ansible_os_family}}"
 
 #Activate volume, if attached.
 #This doesn't detect "mounted" specifically, for easy local environment
@@ -46,40 +20,37 @@
    - webdav
    - apache
 
+#Clone configuration.
 - block:
   - name: stat apache git repo
-    stat: path=/etc/httpd/.git
+    stat: path={{apache_dir}}/.git
     register: apache_repo
 
   - name: clear apache directory
-    file: path=/etc/httpd state=absent
+    file: path={{apache_dir}} state=absent
     when: not apache_repo.stat.exists
 
   - name: clone apache config
     git:
       repo: https://github.com/wwwpro/httpd.git
-      dest: /etc/httpd
+      dest: "{{apache_dir}}"
     when: not apache_repo.stat.exists
 
   tags:
    - webdav
    - apache
-
+s
 - name: check for bb apache config
-  stat: path=/etc/httpd/.git
+  stat: path={{apache_dir}}/.git
   register: apache_default
   tags:
-   - default
-   - builder_dev
+   - always
 
-- name: symlinking default webdav
-  file:
-    src: /etc/httpd/sites-enabled/default-dav.conf
-    dest: /etc/httpd/sites-available/default-dav.conf
-    state: link
-  when: apache_default.stat.exists
-  tags:
-   - default
+- name: remove current default if exists
+  file: name={{apache_dir}}/sites-available
+
+- name: create default site conf
+  template: src=default-dav.conf.j2 dest={{apache_dir}}/sites-available/default-dav.conf
 
 - name: symlinking default webdav
   file:
@@ -89,3 +60,5 @@
   when: apache_default.stat.exists
   tags:
    - builder_dev
+
+- block:

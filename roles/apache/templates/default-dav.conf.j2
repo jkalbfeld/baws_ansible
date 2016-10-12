@@ -1,5 +1,5 @@
 <VirtualHost *:81>
-DocumentRoot /var/www/html/default/html5-boilerplate
+DocumentRoot {{dav_path}}
 #ServerName *
 
 <Location "/" >
@@ -13,7 +13,7 @@ ForceType text/plain
 Dav On
 </Location>
 
-<Directory /var/www/html/default/html5-boilerplate>
+<Directory {{dav_path}}>
 #Overrides default PHP settings to allow Webdav to show a directroy listing.
 DirectoryIndex disabled
 #Ignore .htaccess files
@@ -23,21 +23,21 @@ allow from all
 #Digest is needed for Windows
 AuthType Digest
 AuthName WebDav
-AuthUserFile /var/www/auth/.dav-digest
+AuthUserFile {{auth_dir}}/.dav-digest
 Require valid-user
 </Directory>
 
 SSLEngine off
 
-CustomLog     /var/log/httpd/defaultdav-access.log combined Env=!DontLog
- ErrorLog      /var/log/httpd/defaultdav-error.log
+CustomLog     {{log_dir}}/{{site_name}}-access.log combined Env=!DontLog
+ ErrorLog      {{log_dir}}/{{site_name}}-standard-error.log
  LogLevel crit
 
 </VirtualHost>
 
 
 <VirtualHost *:444>
-DocumentRoot /var/www/html/default/html5-boilerplate
+DocumentRoot {{dav_path}}
 #ServerName *
 
 <Location "/" >
@@ -51,7 +51,7 @@ ForceType text/plain
 Dav On
 </Location>
 
-<Directory /var/www/html/default/html5-boilerplate>
+<Directory {{dav_path}}>
 #Overrides default PHP settings to allow Webdav to show a directroy listing.
 DirectoryIndex disabled
 #Ignore .htaccess files
@@ -62,7 +62,7 @@ allow from all
 AuthType Basic
 AuthName WebDav
 AuthBasicProvider dbm
-AuthDBMUserFile /var/www/auth/.dbm
+AuthDBMUserFile {{auth_dir}}/.dbm
 Require valid-user
 </Directory>
 
@@ -73,11 +73,11 @@ SSLEngine on
 SSLCipherSuite RC4-SHA:AES128-SHA:HIGH:MEDIUM:!aNULL:!MD5
 SSLHonorCipherOrder on
 
-SSLCertificateFile /etc/pki/tls/certs/localhost.crt
-SSLCertificateKeyFile /etc/pki/tls/private/localhost.key
+SSLCertificateFile {{ssl_crt}}
+SSLCertificateKeyFile {{ssl_key}}
 
-CustomLog     /var/log/httpd/defaultsecure-access.log combined Env=!DontLog
- ErrorLog      /var/log/httpd/defaultsecure-error.log
+CustomLog     {{log_dir}}/{{site_name}}-secure-access.log combined Env=!DontLog
+ ErrorLog      {{log_dir}}/{{site_name}}-secure-error.log
  LogLevel crit
 
 </VirtualHost>
