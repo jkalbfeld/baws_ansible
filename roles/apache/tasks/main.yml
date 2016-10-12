@@ -1,4 +1,4 @@
-- name: "including vars {{ansible_os_family}}.yml"
+- name: "including vars file"
   include_vars: "{{ansible_os_family}}.yml"
 
 - name: including apache task file
