@@ -58,10 +58,10 @@
       state: link
 
   - name: restoring run symlink
-      file:
-        src: /var/run/httpd
-        dest: /etc/httpd/run
-        state: link
+    file:
+      src: /var/run/httpd
+      dest: /etc/httpd/run
+      state: link
 
   when: not apache_repo.stat.exists
   tags:
