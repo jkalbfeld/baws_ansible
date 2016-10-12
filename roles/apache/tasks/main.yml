@@ -26,11 +26,15 @@
    - webdav
    - apache
 
+
+- name: stat apache git repo
+  stat: path={{apache_dir}}/.git
+  register: apache_repo
+  tags:
+   - webdav
+
 #Clone configuration.
 - block:
-  - name: stat apache git repo
-    stat: path={{apache_dir}}/.git
-    register: apache_repo
 
   - name: clear apache directory
     file: path={{apache_dir}} state=absent
@@ -40,8 +44,26 @@
     git:
       repo: https://github.com/wwwpro/httpd.git
       dest: "{{apache_dir}}"
-    when: not apache_repo.stat.exists
 
+  - name: restoring logs symlink
+    file:
+      src: /var/log/httpd
+      dest: /etc/httpd/logs
+      state: link
+
+  - name: restoring modules symlink
+    file:
+      src: /usr/lib64/httpd/modules
+      dest: /etc/httpd/modules
+      state: link
+
+  - name: restoring run symlink
+      file:
+        src: /var/run/httpd
+        dest: /etc/httpd/run
+        state: link
+
+  when: not apache_repo.stat.exists
   tags:
    - webdav
 
