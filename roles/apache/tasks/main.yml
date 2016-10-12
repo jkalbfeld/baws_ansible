@@ -40,7 +40,7 @@ include: "{{ansible_os_family}}.yml"
    - webdav
    - apache
 
-   
+
 - name: check for bb apache config
   stat: path={{apache_dir}}/.git
   register: apache_default
@@ -61,5 +61,3 @@ include: "{{ansible_os_family}}.yml"
   when: apache_default.stat.exists
   tags:
    - builder_dev
-
-- block:
