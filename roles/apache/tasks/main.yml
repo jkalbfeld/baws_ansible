@@ -1,7 +1,36 @@
 
 
-include: "vars/{{ansible_os_family}}.yml"
-include: "{{ansible_os_family}}.yml"
+#include: "vars/{{ansible_os_family}}.yml"
+#include: "{{ansible_os_family}}.yml"
+
+- name: install apache
+  yum: name={{item}} state=present
+  with_items:
+   - httpd24
+   - httpd24-tools
+   - perl-CPAN
+   - perl-Authen-PAM
+   - mod24_ssl
+   - perl-libwww-perl
+   - perl-App-cpanminus
+  notify:
+   - enable apache boot
+   - restart apache
+  tags:
+   - apache
+   - webdav
+
+#devel includes apxs, which allows authen install
+- name: install devel tools
+  yum: name=httpd24-devel state=present
+  notify:
+   - clone authenz
+   - create authenz install files
+   - activate authenz
+   - authen cleanup
+   - restart apache
+  tags:
+   - webdav
 
 #Activate volume, if attached.
 #This doesn't detect "mounted" specifically, for easy local environment
@@ -40,8 +69,6 @@ include: "{{ansible_os_family}}.yml"
 
   tags:
    - webdav
-   - apache
-
 
 - name: check for bb apache config
   stat: path={{apache_dir}}/.git
