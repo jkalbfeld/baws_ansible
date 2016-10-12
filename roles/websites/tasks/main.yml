@@ -10,6 +10,7 @@
     notify:
      - symlink grav
      - restart nginx
+     - symlink default dav
     args:
       creates: /var/www/html/default/index.php
       chdir: /var/www/html
@@ -17,7 +18,5 @@
   - name: default directory nginx ownership
     file: path=/var/www/html/default owner=nginx group=nginx
 
-  notify:
-   - symlink default dav
   tags:
    - grav
