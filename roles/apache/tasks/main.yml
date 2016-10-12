@@ -45,6 +45,11 @@
       repo: https://github.com/wwwpro/httpd.git
       dest: "{{apache_dir}}"
 
+  - name: replace default dav
+    template:
+      src: default-dav.conf.j2
+      dest: "{{apache_dir}}/sites-available/default-dav.conf"
+
   - name: restoring logs symlink
     file:
       src: /var/log/httpd
