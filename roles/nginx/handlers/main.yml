@@ -13,12 +13,12 @@
    dest: /etc/nginx/sites-enabled/pma.conf
    state: link
 
-- name: symlink grav
+- name: symlink default site
   file:
     src: /etc/nginx/sites-available/default.conf
     dest: /etc/nginx/sites-enabled/default.conf
     state: link
-  when: nginx_repo.stat.exists
+  ignore_errors: trueh
 
 - name: restart nginx
   service: name=nginx state=restarted

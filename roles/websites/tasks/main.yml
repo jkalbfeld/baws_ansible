@@ -8,15 +8,75 @@
     become_user: "{{ssh_user}}"
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project getgrav/grav default  --no-dev  --no-ansi --no-interaction --no-progress
     notify:
-     - symlink grav
-     - restart nginx
+     - symlink default site
      - symlink default dav
+     - restart nginx
     args:
       creates: /var/www/html/default/index.php
       chdir: /var/www/html
 
   - name: default directory nginx ownership
-    file: path=/var/www/html/default owner=nginx group=nginx
+    file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory
 
   tags:
    - grav
+
+
+#Install drupal site.
+
+- block:
+
+  - name: installing minimal drupal 7 site
+    shell: /usr/bin/drush dl drupal-7 --destination=./ --drupal-project-rename=default
+    args:
+      creates: /var/www/html/default/index.php
+      chdir: /var/www/html
+
+  - name: create default directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+
+  tags:
+   - drupal7
+
+- block:
+
+  - name: installing minimal drupal 8 site
+    shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
+    args:
+      creates: /var/www/html/default/index.php
+      chdir: /var/www/html
+
+  - name: create default directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+
+  tags:
+   - drupal8
+
+- block:
+
+  - name: installing minimal wordpress site
+    shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
+    args:
+      creates: /var/www/html/default/index.php
+      chdir: /var/www/html
+
+  - name: create default directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+
+  tags:
+   - wordpress
+
+
+#Install blank site.
+- block:
+
+  - name: create blank site
+    file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory
+    notify:
+     - symlink default site
+     - symlink default dav
+
+  - name: html page
+
+  tags:
+   - blank

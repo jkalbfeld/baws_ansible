@@ -72,7 +72,7 @@
   tags:
    - webdav
 
-- name: check for bb apache config
+- name: check for baws apache config
   stat: path={{apache_dir}}/.git
   register: apache_default
   tags:
