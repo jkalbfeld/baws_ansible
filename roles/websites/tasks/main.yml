@@ -26,8 +26,14 @@
 
 - block:
 
+  - name: include drupal vars
+    include_vars: drupal.yml
+
   - name: installing minimal drupal 7 site
     shell: /usr/bin/drush dl drupal-7 --destination=./ --drupal-project-rename=default
+    notify:
+     - create site
+     - enable site
     args:
       creates: /var/www/html/default/index.php
       chdir: /var/www/html
