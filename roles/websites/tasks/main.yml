@@ -40,12 +40,8 @@
 
 - block:
 
-  - name: set drupal template vars
-    vars:
-      nginx_includes:
-       - apps/drupal/drupal.conf
-       - apps/drupal/drupal_cron_update.conf
-       - apps/drupal/drupal_install.conf
+  - name: include drupal vars
+    vars_include: drupal.yml
 
   - name: installing minimal drupal 8 site
     shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
