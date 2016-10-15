@@ -84,7 +84,5 @@
      - symlink default site
      - symlink default dav
 
-  - name: html page
-
   tags:
    - blank
