@@ -41,7 +41,7 @@
 - block:
 
   - name: include drupal vars
-    vars_include: drupal.yml
+    include_vars: drupal.yml
 
   - name: installing minimal drupal 8 site
     shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
