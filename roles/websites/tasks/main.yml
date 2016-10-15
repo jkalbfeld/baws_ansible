@@ -42,6 +42,14 @@
 
   - name: installing minimal drupal 8 site
     shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
+    vars:
+      includes:
+       - apps/drupal/drupal.conf
+       - apps/drupal/drupal_cron_update.conf
+       - apps/drupal/drupal_install.conf
+    notify:
+     - create site
+     - enable site
     args:
       creates: /var/www/html/default/index.php
       chdir: /var/www/html

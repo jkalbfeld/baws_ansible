@@ -13,12 +13,22 @@
    dest: /etc/nginx/sites-enabled/pma.conf
    state: link
 
+- name: create site
+  template: src=default.j2.conf dest={{site_available}}/{{site_name}}.conf
+
+- name: enable site
+  file: src={{site_available}}/{{site_name}}.conf dest={{site_enabled}}/{{site_name}}.conf state=link
+
 - name: symlink default site
   file:
     src: /etc/nginx/sites-available/default.conf
     dest: /etc/nginx/sites-enabled/default.conf
     state: link
-  ignore_errors: trueh
+  ignore_errors: true
+
+
+- name: create drupal site
+  template: src=default.j2.conf dest
 
 - name: restart nginx
   service: name=nginx state=restarted
