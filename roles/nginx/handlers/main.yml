@@ -26,9 +26,5 @@
     state: link
   ignore_errors: true
 
-
-- name: create drupal site
-  template: src=default.j2.conf dest
-
 - name: restart nginx
   service: name=nginx state=restarted
