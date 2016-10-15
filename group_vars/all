@@ -4,3 +4,4 @@ user_pass: "{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16')
 user_name: admin
 slack_token: none
 slack_channel: aws
+vim_background: dark

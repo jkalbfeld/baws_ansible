@@ -50,6 +50,12 @@
       src: default-dav.conf.j2
       dest: "{{apache_dir}}/sites-available/default-dav.conf"
 
+ - name: symlink default dav
+   file:
+     src: "{{apache_dir}}/sites-available/default-dav.conf"
+     dest: "{{apache_dir}}/sites-enabled/default-dav.conf"
+     state: link
+
   - name: restoring logs symlink
     file:
       src: /var/log/httpd
