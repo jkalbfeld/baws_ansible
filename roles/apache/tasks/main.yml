@@ -58,15 +58,15 @@
 #Create dav-digest and dbm for ports 81 and 444 webdav, respectively.
 - block:
 
- - name: get md5 password
-   shell:  echo -n "{{user_pass}}" | md5sum | awk '{print $0}' | cut -f1 -d ' '
-   register: md5_pass
+  - name: get md5 password
+    shell:  echo -n "{{user_pass}}" | md5sum | awk '{print $0}' | cut -f1 -d ' '
+    register: md5_pass
 
- - name: create webdav digest
-   lineinfile:
-     create: yes
-     line: "{{user_name}}:WebDav:{{md5_pass}}"
-     dest: "{{auth_dir}}/.dav-digest"
+  - name: create webdav digest
+    lineinfile:
+      create: yes
+      line: "{{user_name}}:WebDav:{{md5_pass}}"
+      dest: "{{auth_dir}}/.dav-digest"
 
   - name: create webdav dbm
     shell: "/usr/bin/htdbm -cb {{auth_dir}}/.dbm {{user_name}} {{user_pass}]"
