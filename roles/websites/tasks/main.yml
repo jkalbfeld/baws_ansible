@@ -16,7 +16,7 @@
       chdir: /var/www/html
 
   - name: default directory nginx ownership
-    file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory
+    file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - grav
@@ -39,7 +39,7 @@
       chdir: /var/www/html
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - drupal7
@@ -59,7 +59,7 @@
       chdir: /var/www/html
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - drupal8
@@ -73,7 +73,7 @@
       chdir: /var/www/html
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory
+    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - wordpress
