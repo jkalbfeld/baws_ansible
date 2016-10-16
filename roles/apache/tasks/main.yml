@@ -65,7 +65,7 @@
   - name: create webdav digest
     lineinfile:
       create: yes
-      line: "{{user_name}}:WebDav:{{md5_pass}}"
+      line: "{{user_name}}:WebDav:{{md5_pass.stdout}}"
       dest: "{{auth_dir}}/.dav-digest"
 
   - name: create webdav dbm
