@@ -69,7 +69,7 @@
       dest: "{{auth_dir}}/.dav-digest"
 
   - name: create webdav dbm
-    shell: "/usr/bin/htdbm -cb {{auth_dir}}/.dbm {{user_name}} {{user_pass}]"
+    shell: "/usr/bin/htdbm -cb {{auth_dir}}/.dbm {{user_name}} {{user_pass}}"
 
   tags:
    - webdav
