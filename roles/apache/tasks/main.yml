@@ -59,7 +59,7 @@
 - block:
 
   - name: get md5 password
-    shell: "echo -n {{dav_user}}:WebDav:{{user_pass}} | md5sum | cut -f1 -d ' '"
+    shell: "echo -n {{user_name}}:WebDav:{{user_pass}} | md5sum | cut -f1 -d ' '"
     register: md5_pass
 
   - name: create webdav digest

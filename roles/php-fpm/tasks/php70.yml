@@ -94,4 +94,26 @@
    - xdebug
   when: php_version == 70
 
+#Adjust defaults which are too small.
+- block:
+
+  - name: change post max
+    lineinfile:
+      dest: /etc/php.ini
+      state: present
+      regexp: '^post_max_size = 8M'
+      line: 'post_max_size = 100M'
+
+  - name: change max upload
+    lineinfile:
+      dest: /etc/php.ini
+      state: present
+      regexp: '^upload_max_filesize = 2M'
+      line: 'upload_max_filesize = 100M'
+
+  when: php_version == 70
+  tags:
+   - dev
+   - live
+
 ...

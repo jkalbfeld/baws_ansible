@@ -54,7 +54,7 @@
     lineinfile:
      dest: /etc/yum/yum-cron.conf
      state: present
-     regexp: '^apply_updates = no'
+     regexp: '^apply_updates\s=\s[no]'
      line: 'apply_updates = yes'
     when: yumcron.changed
     tags:
@@ -64,7 +64,7 @@
     lineinfile:
      dest: /etc/yum/yum-cron.conf
      state: present
-     regexp: '^update_cmd = default'
+     regexp: '^update_cmd\s=\s[default]'
      line: 'update_cmd = security'
     when: yumcron.changed
     tags:
