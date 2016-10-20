@@ -1,1 +1,2 @@
 php_version: 70
+php_user: nginx

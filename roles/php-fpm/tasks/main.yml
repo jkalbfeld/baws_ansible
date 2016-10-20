@@ -74,6 +74,7 @@
 - name: burrisx conf
   template: src=www.conf.j2 dest=/etc/php-fpm.d/burrisx.conf
   vars:
+    php_user: burrisx
     pool_name: "{{ pool_bb_name }}"
     php_port: "{{ php_bb_port }}"
     php_addr: "{{ php_bb_addr }}"
