@@ -34,6 +34,13 @@
       chdir: /opt/burris_builder
       creates: /opt/burris_builder/composer.lock
 
+  - name: add burrisx sudoer
+    lineinfile: "dest=/etc/sudoers state=present regexp='^burrisx' line='burrisx ALL = NOPASSWD: ALL' validate='visudo -cf %s'"
+
+  - name: remove burrisx tty requirement
+    lineinfile: "dest=/etc/sudoers state=present regexp='^Defaults:burrisx' line='Defaults:burrisx !requiretty' validate='visudo -cf %s'"
+
+
   - name: install builder drush
     become_user: burrisx
     shell: /usr/bin/drush site-install -y standard --db-url="mysql://{{ builder_db }}:{{ builder_pass }}@{{ builder_mysql }}/{{ builder_db }}" --account-mail="{{ user_email }}" --site-mail="{{ user_email }}" --site-name="Burris Builder" --db-su-pw="{{ builder_pass }}" --account-name="{{ user_name }}" --account-pass="{{ user_pass }}"

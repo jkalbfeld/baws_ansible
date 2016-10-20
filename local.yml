@@ -54,7 +54,7 @@
     lineinfile:
      dest: /etc/yum/yum-cron.conf
      state: present
-     regexp: '^apply_updates\s=\s[no]'
+     regexp: '^apply_updates \='
      line: 'apply_updates = yes'
     when: yumcron.changed
     tags:
