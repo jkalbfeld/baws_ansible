@@ -125,8 +125,9 @@
 
 - name: symlinking default webdav
   file:
-    src: /etc/httpd/sites-enabled/burris_builder-dav.conf
-    dest: /etc/httpd/sites-available/burris_builder-dav.conf
+    src: /etc/httpd/sites-available/burris_builder-dav.conf
+    dest: /etc/httpd/sites-enabled/burris_builder-dav.conf
+
     state: link
   when: apache_default.stat.exists
   tags:
