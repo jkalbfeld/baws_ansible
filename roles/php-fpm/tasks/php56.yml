@@ -38,7 +38,8 @@
   - name: install php-fpm
     yum: name=php56-fpm state=installed
     notify:
-     - restart php-fpm
+     - restart php-fpm 56
+     - restart php-fpm 56
      - enable php-fpm boot
      - monitor php-fpm
     tags:
