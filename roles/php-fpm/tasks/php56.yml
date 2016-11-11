@@ -79,7 +79,7 @@
     tags:
      - dev
 
-  when: php_version == 56
+  when: php_version == 5.6
 
 - block:
 
@@ -93,7 +93,7 @@
 
   tags:
    - dev
-  when: php_version == 56
+  when: php_version == 5.6
 
 
 ...

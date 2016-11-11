@@ -72,7 +72,7 @@
     tags:
      - dev
 
-  when: php_version == 70
+  when: php_version == 7.0
 
 - block:
 
@@ -92,7 +92,7 @@
   tags:
    - dev
    - xdebug
-  when: php_version == 70
+  when: php_version == 7.0
 
 #Adjust defaults which are too small.
 - block:
@@ -111,7 +111,7 @@
       regexp: '^upload_max_filesize = 2M'
       line: 'upload_max_filesize = 100M'
 
-  when: php_version == 70
+  when: php_version == 7.0
   tags:
    - dev
    - live
