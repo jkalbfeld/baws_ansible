@@ -1,7 +1,7 @@
 --- #Sets up server from ansible pull.
 
 - name: setup server
-  hosts: "{{host_name}}"
+  hosts: "{{host_name | default ('localhost')}}"
   remote_user: "{{ssh_user}}"
   become: true
   pre_tasks:
