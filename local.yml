@@ -1,7 +1,7 @@
 --- #Sets up server from ansible pull.
 
 - name: setup server
-  hosts: localhost
+  hosts: "{{host}}"
   remote_user: "{{ssh_user}}"
   become: true
   pre_tasks:
@@ -79,5 +79,5 @@
     service: name=yum-cron enabled=yes
 
   - name: start yum cron
-    service: name=yum-cron status=started
+    service: name=yum-cron state=started
 ...

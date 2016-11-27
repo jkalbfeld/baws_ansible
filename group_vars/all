@@ -1,3 +1,4 @@
+host: localhost
 ssh_user: ec2-user
 user_email: admin@localhost.com
 user_pass: "{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16') }}"

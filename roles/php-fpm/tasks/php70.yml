@@ -108,8 +108,8 @@
     lineinfile:
       dest: /etc/php.ini
       state: present
-      regexp: '^upload_max_filesize = 2M'
-      line: 'upload_max_filesize = 100M'
+      regexp: '^upload_max_filesize'
+      line: 'upload_max_filesize'
 
   when: php_version == 7.0
   tags:

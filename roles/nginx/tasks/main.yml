@@ -63,7 +63,6 @@
    state: link
   when: nginx_post.stat.exists
   tags:
-   - live
    - status
 
 - name: symlink default
