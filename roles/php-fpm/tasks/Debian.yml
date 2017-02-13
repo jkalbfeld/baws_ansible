@@ -4,7 +4,8 @@
     apt: name=language-pack-en-base state=present
 
   - name: get ondrej repo
-    apt_repository: repo=ppa:ondrej/php state=present update_cache=yes
+    apt_repository:
+     repo: 'ppa:ondrej/php'
 
 
   - name: install php 70 packages
@@ -54,7 +55,7 @@
 - name: set php memory limit
   lineinfile:
     dest: /etc/php/7.0/fpm/php.ini
-    regexp: '^memory_limit = 128M'
+    regexp: '^memory_limit'
     line: 'memory_limit = 512M'
     state: present
   tags:

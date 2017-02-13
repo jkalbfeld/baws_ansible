@@ -1,4 +1,9 @@
 - block:
+
+  - name: add nginx repo
+    apt_repository:
+     repo: 'ppa:nginx/stable'
+
   - name: install nginx
     apt: name=nginx state=present
     notify:
