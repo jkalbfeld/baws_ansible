@@ -1,0 +1,7 @@
+dav_path: /var/www/html/default
+output_file: default.conf
+site_name: default
+log_dir: /var/log/httpd
+ssl_crt: /etc/pki/tls/certs/localhost.crt
+ssl_key: /etc/pki/tls/private/localhost.key
+auth_dir: /var/www/auth
