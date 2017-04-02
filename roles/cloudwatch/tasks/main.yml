@@ -1,6 +1,6 @@
 - block:
 
-  - name:
+  - name: register aws monitor
     stat: path=/opt/aws-scripts-mon
     register: awsmonitor
 
