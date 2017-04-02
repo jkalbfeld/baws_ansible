@@ -71,6 +71,7 @@
   - monit
   - gluster
   - jenkins
+  - cloudwatch
   - slack
 
   handlers:
