@@ -23,8 +23,7 @@
 
   - name: create aws monitoring cron
     cron:
-      job: /opt/aws-scripts-mon/mon-put-instance-data.pl --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-space-util --disk-space-used --disk-space-avail --memory-units=megabytes --disk-space-units=gigabytes --disk-path=/dev/xvda1
-      minute: "*/3"
+      job: /opt/aws-scripts-mon/mon-put-instance-data.pl --from-cron --auto-scaling=only --mem-util --mem-used --mem-avail --swap-util --swap-used --disk-space-util --disk-space-used --disk-space-avail --memory-units=megabytes --disk-space-units=gigabytes --disk-path=/dev/xvda1
 
   tags:
    - cloudwatch
