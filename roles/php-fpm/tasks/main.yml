@@ -3,7 +3,8 @@
 #PHP Install and settings.
 - include: "{{ansible_os_family}}.yml"
 
-- include_vars:
+- name: include family values
+  include_vars:
     file: "{{ansible_os_family}}.yml"
 
 #Setup session directories
