@@ -6,6 +6,8 @@
 - name: include family values
   include_vars:
     file: "{{ansible_os_family}}.yml"
+  tags:
+   - always
 
 #Setup session directories
 - name: dev session
