@@ -13,12 +13,18 @@
    dest: /etc/nginx/sites-enabled/pma.conf
    state: link
 
-- name: symlink grav
+- name: create site
+  template: src=default.j2.conf dest={{site_available}}/{{site_name}}.conf
+
+- name: enable site
+  file: src={{site_available}}/{{site_name}}.conf dest={{site_enabled}}/{{site_name}}.conf state=link
+
+- name: symlink default site
   file:
     src: /etc/nginx/sites-available/default.conf
     dest: /etc/nginx/sites-enabled/default.conf
     state: link
-  when: nginx_repo.stat.exists
+  ignore_errors: true
 
 - name: restart nginx
   service: name=nginx state=restarted

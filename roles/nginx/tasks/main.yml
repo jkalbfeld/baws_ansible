@@ -28,7 +28,7 @@
     file: path=/etc/nginx/ssl state=directory
 
   - name: create nginx self signed certificate
-    shell: openssl req -x509 -sha256 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -subj "/C=. /ST=. /L=. /O=. /CN=localhost"
+    shell: openssl req -new -nodes -x509 -subj "/C=../ST=../L=../O=../CN=localhost" -days 3650 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -extensions v3_ca
     args:
       creates: /etc/nginx/ssl/nginx.crt
 
@@ -58,7 +58,6 @@
    state: link
   when: nginx_post.stat.exists
   tags:
-   - live
    - status
 
 - name: symlink default

@@ -36,7 +36,7 @@
     php_memory: "{{ php_dev_memory }}"
     php_errors: "{{ php_dev_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-dev"
-    php_log: "/var/log/php/{{php_version}}/wwwdev-error.log"
+    php_log: "/var/log/php-fpm/{{php_version}}/wwwdev-error.log"
   tags:
   - dev
 
@@ -49,7 +49,7 @@
     php_memory: "{{ php_stage_memory }}"
     php_errors: "{{ php_stage_errors }}"
     php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
+    php_log: "/var/log/php-fpm/{{php_version}}/wwwstage-error.log"
   tags:
   - dev
 
@@ -61,8 +61,8 @@
     php_addr: "{{ php_live_addr }}"
     php_memory: "{{ php_live_memory }}"
     php_errors: "{{ php_live_errors }}"
-    php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{php_version}}/wwwstage-error.log"
+    php_session: "/var/lib/php/{{php_version}}/session-live"
+    php_log: "/var/log/php-fpm/{{php_version}}/error.log"
   tags:
   - dev
   - live
@@ -70,13 +70,14 @@
 - name: burrisx conf
   template: src=www.conf.j2 dest=/etc/php-fpm.d/burrisx.conf
   vars:
+    php_user: burrisx
     pool_name: "{{ pool_bb_name }}"
     php_port: "{{ php_bb_port }}"
     php_addr: "{{ php_bb_addr }}"
     php_memory: "{{ php_bb_memory }}"
     php_errors: "{{ php_bb_errors }}"
-    php_session: "/var/lib/php/{{php_version}}/session-stage"
-    php_log: "/var/log/php/{{{php_version}}/wwwstage-error.log"
+    php_session: "/var/lib/php/{{php_version}}/session-burrisx"
+    php_log: "/var/log/php/{{php_version}}/wwwburrisx-error.log"
   tags:
   - burris_builder
 

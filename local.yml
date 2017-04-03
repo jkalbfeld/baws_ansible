@@ -1,11 +1,32 @@
 --- #Sets up server from ansible pull.
 
 - name: setup server
-  hosts: localhost
+  hosts: "{{host_name | default ('localhost')}}"
   remote_user: "{{ssh_user}}"
   become: true
   pre_tasks:
   - include: "{{ansible_os_family}}.yml"
+
+  - name: sed yum cron
+    lineinfile:
+     dest: /etc/yum/yum-cron.conf
+     state: present
+     regexp: '^apply_updates'
+     line: 'apply_updates = yes'
+    when: yumcron.changed
+    tags:
+     - always
+
+  - name: sed yum security
+    lineinfile:
+     dest: /etc/yum/yum-cron.conf
+     state: present
+     regexp: '^update_cmd'
+     line: 'update_cmd = security'
+    when: yumcron.changed
+    tags:
+     - live
+
   roles:
    - common
    - nginx
