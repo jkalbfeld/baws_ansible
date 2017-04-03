@@ -3,6 +3,9 @@
 #PHP Install and settings.
 - include: "{{ansible_os_family}}.yml"
 
+- include_vars:
+    file: "{{ansible_os_family}}.yml"
+
 #Setup session directories
 - name: dev session
   file: path=/var/lib/php/{{php_version}}/session-dev state=directory owner=nginx group=nginx mode=0770

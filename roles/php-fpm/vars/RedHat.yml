@@ -1,0 +1,3 @@
+php_fpm_dir: /etc/php-fpm.d
+php_fpm_pool_dir: /etc/php-fpm.d
+php_ini_dir: /etc/php-fpm.d
