@@ -45,7 +45,7 @@
     command: /usr/bin/pecl config-set php_ini /etc/php/7.0/fpm/php.ini
 
   - name: set pear 7 vars
-    command: /usr/bin/pearsu config-set php_ini /etc/php/7.0/fpm/php.ini
+    command: /usr/bin/pear config-set php_ini /etc/php/7.0/fpm/php.ini
 
   when: php.changed
   tags:
