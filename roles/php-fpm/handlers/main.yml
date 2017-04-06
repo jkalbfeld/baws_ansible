@@ -7,3 +7,9 @@
 
 - name: restart php-fpm 70
   service: name=php-fpm-7.0 state=restarted
+
+- name: enable ubuntu php-fpm
+  service: name=php7.0-fpm enabled=yes
+
+- name: restart ubuntu php-fpm
+  service: name=php7.0-fpm state restarted

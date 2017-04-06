@@ -30,8 +30,8 @@
   - name: install php-fpm
     apt: name=php7.0-fpm state=installed
     notify:
-     - restart php-fpm 70
-     - enable php-fpm 70
+     - restart ubuntu php-fpm
+     - restart ubuntu php-fpm
      - monitor php-fpm 70
 
   tags:
