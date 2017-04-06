@@ -32,7 +32,6 @@
     notify:
      - restart ubuntu php-fpm
      - restart ubuntu php-fpm
-     - monitor php-fpm 70
 
   tags:
    - dev
