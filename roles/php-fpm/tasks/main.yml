@@ -11,13 +11,13 @@
 
 
 - name: setup log directory
-  file: path={{ php_log }} state=directory
+  file: path={{ php_log_dir }} state=directory
   tags:
    - dev
    - live
 
 - name: setup dev session directories
-  file: path={{ php_session }}/{{ item }} state=directory owner=nginx group=nginx mode=0770
+  file: path={{ php_session_dir }}/{{ item }} state=directory owner=nginx group=nginx mode=0770
   with_items:
    - session-dev
    - session-stage
@@ -26,12 +26,12 @@
    - dev
 
 - name: setup live session directories
-  file: path={{ php_session }}/session-live state=directory owner=nginx group=nginx mode=0770
+  file: path={{ php_session_dir }}/session-live state=directory owner=nginx group=nginx mode=0770
   tags:
    - live
 
 - name: setup burris builder session directory
-  file: path={{ php_session }}/session-burrisx state=directory owner=nginx group=nginx mode=0770
+  file: path={{ php_session_dir }}/session-burrisx state=directory owner=nginx group=nginx mode=0770
   tags:
    - burris_builder
 
