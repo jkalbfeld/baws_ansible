@@ -11,7 +11,7 @@
 
 
 - name: setup dev session directories
-  file: path={{ php_session }}/{{ item }} state=directory owner=nginx group=nginx mode-0770
+  file: path={{ php_session }}/{{ item }} state=directory owner=nginx group=nginx mode=0770
   with_items:
    - session-dev
    - session-stage
@@ -20,7 +20,7 @@
    - dev
 
 - name: setup live session directories
-  file: path={{ php_session }}/session-live state=directory owner=nginx group=nginx mode-0770
+  file: path={{ php_session }}/session-live state=directory owner=nginx group=nginx mode=0770
   tags:
    - live
 
