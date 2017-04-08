@@ -10,6 +10,12 @@
    - always
 
 
+- name: setup log directory
+  file: path={{ php_log }} state=directory
+  tags:
+   - dev
+   - live
+
 - name: setup dev session directories
   file: path={{ php_session }}/{{ item }} state=directory owner=nginx group=nginx mode=0770
   with_items:
