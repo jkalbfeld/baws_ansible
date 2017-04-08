@@ -31,7 +31,7 @@
 
 
 #Setup Pools
-- name: www dev conf
+- name: setup dev pool
   template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www-dev.conf
   vars:
     pool_name: "{{ pool_dev_name }}"
@@ -44,7 +44,7 @@
   tags:
   - dev
 
-- name: www stage conf
+- name: setup stage pool
   template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www-stage.conf
   vars:
     pool_name: "{{ pool_stage_name }}"
@@ -57,7 +57,7 @@
   tags:
   - dev
 
-- name: www live conf
+- name: setup live pool
   template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www.conf
   vars:
     pool_name: "{{ pool_live_name }}"
@@ -71,7 +71,7 @@
   - dev
   - live
 
-- name: burrisx conf
+- name: setup burrisx pool
   template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/burrisx.conf
   vars:
     php_user: burrisx
