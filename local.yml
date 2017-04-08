@@ -6,7 +6,6 @@
   become: true
   pre_tasks:
   - include: "{{ansible_os_family}}.yml"
-`
   roles:
    - common
    - nginx
