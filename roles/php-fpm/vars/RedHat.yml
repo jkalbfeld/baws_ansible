@@ -1,3 +1,5 @@
 php_fpm_dir: /etc/php-fpm.d
 php_fpm_pool_dir: /etc/php-fpm.d
 php_ini_dir: /etc/php-fpm.d
+php_log: /var/log/php/7.0
+php_session: /var/lib/php/7.0

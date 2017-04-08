@@ -9,27 +9,80 @@
   tags:
    - always
 
-#Setup session directories
-- name: dev session
-  file: path=/var/lib/php/{{php_version}}/session-dev state=directory owner=nginx group=nginx mode=0770
+
+- name: setup dev session directories
+  file: path={{ php_session }}/{{ item }} state=directory owner=nginx group=nginx mode-0770
+  with_items:
+   - session-dev
+   - session-stage
+   - session-live
   tags:
    - dev
 
-- name: stage session
-  file: path=/var/lib/php/{{php_version}}/session-stage state=directory owner=nginx group=nginx mode=0770
+- name: setup live session directories
+  file: file: path={{ php_session }}/session-live state=directory owner=nginx group=nginx mode-0770
   tags:
-   - dev
-
-- name: live session
-  file: path=/var/lib/php/{{php_version}}/session-live state=directory owner=nginx group=nginx mode=0770
-  tags:
-   - dev
    - live
 
-- name: builder session
-  file: path=/var/lib/php/{{php_version}}/session-burrisx state=directory owner=nginx group=nginx mode=0770
+- name: setup burris builder session directory
+  file: path={{ php_session }}/session-burrisx state=directory owner=nginx group=nginx mode=0770
   tags:
    - burris_builder
 
+
+#Setup Pools
+- name: www dev conf
+  template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www-dev.conf
+  vars:
+    pool_name: "{{ pool_dev_name }}"
+    php_port: "{{ php_dev_port }}"
+    php_addr: "{{ php_dev_addr }}"
+    php_memory: "{{ php_dev_memory }}"
+    php_errors: "{{ php_dev_errors }}"
+    php_session: "{{php_session}}/session-dev"
+    php_log: "{{php_log}}/wwwdev-error.log"
+  tags:
+  - dev
+
+- name: www stage conf
+  template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www-stage.conf
+  vars:
+    pool_name: "{{ pool_stage_name }}"
+    php_port: "{{ php_stage_port }}"
+    php_addr: "{{ php_stage_addr }}"
+    php_memory: "{{ php_stage_memory }}"
+    php_errors: "{{ php_stage_errors }}"
+    php_session: "{{ php_session }}/session-stage"
+    php_log: "{{ php_log }}/wwwstage-error.log"
+  tags:
+  - dev
+
+- name: www live conf
+  template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/www.conf
+  vars:
+    pool_name: "{{ pool_live_name }}"
+    php_port: "{{ php_live_port }}"
+    php_addr: "{{ php_live_addr }}"
+    php_memory: "{{ php_live_memory }}"
+    php_errors: "{{ php_live_errors }}"
+    php_session: "{{ php_session }}/session-live"
+    php_log: "{{ php_log }}/error.log"
+  tags:
+  - dev
+  - live
+
+- name: burrisx conf
+  template: src=www.conf.j2 dest={{php_fpm_pool_dir}}/burrisx.conf
+  vars:
+    php_user: burrisx
+    pool_name: "{{ pool_bb_name }}"
+    php_port: "{{ php_bb_port }}"
+    php_addr: "{{ php_bb_addr }}"
+    php_memory: "{{ php_bb_memory }}"
+    php_errors: "{{ php_bb_errors }}"
+    php_session: "{{ php_session }}/session-burrisx"
+    php_log: "{{ php_log }}/wwwburrisx-error.log"
+  tags:
+  - burris_builder
 
 ...
