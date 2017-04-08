@@ -8,25 +8,6 @@
      repo: 'ppa:ondrej/php'
 
 
-  - name: install php 70 packages
-    apt: name={{ item }} state=installed
-    with_items:
-    - php-pear
-    - php7.0-common
-    - php7.0-cli
-    - php7.0-dev
-    - php7.0-gd
-    - php7.0-intl
-    - php7.0-mbstring
-    - php7.0-mysqlnd
-    - php7.0-opcache
-    - php7.0-soap
-    - php7.0-tidy
-    - php7.0-xml
-    - php7.0-xmlrpc
-    - php7.0-zip
-    register: php
-
   - name: install php-fpm
     apt: name=php7.0-fpm state=installed
     notify:
