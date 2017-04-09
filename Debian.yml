@@ -18,6 +18,6 @@
 
 
 - name: import vagrant ssh user
-  include_vars: vabrant.yml
+  include_vars: vagrant.yml
   tags:
    - vagrant
