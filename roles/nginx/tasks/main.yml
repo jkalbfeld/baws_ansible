@@ -105,4 +105,14 @@
    - dev
    - opcache
 
+
+- name: setup nginx for vagrant
+  lineinfile:
+    dest: /etc/nginx.conf
+    state: present
+    regexp: '^user'
+    line: 'user vagrant;'
+  tags:
+   - vagrant
+
 ...

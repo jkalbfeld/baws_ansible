@@ -4,7 +4,5 @@
   - include: "{{ansible_os_family}}.yml"
 
   tags:
-   - dev
-   - live
-   - mysql
+  - monit
 ...

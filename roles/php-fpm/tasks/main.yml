@@ -9,6 +9,10 @@
   tags:
    - always
 
+- name: include vagrant vars
+  include_vars: file=vagrant.yml
+  tags:
+   - vagrant
 
 - name: setup log directory
   file: path={{ php_log_dir }} state=directory

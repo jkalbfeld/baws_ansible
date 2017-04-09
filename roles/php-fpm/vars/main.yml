@@ -15,8 +15,8 @@ php_live_addr: 127.0.0.1
 php_bb_addr: 127.0.0.1
 
 php_dev_memory: 384M
-php_stage_memory: 256M
-php_live_memory: 256M
+php_stage_memory: 384M
+php_live_memory: 384M
 php_bb_memory: 384M
 
 php_dev_errors: on

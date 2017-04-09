@@ -1,8 +1,18 @@
 host_name: localhost
+site_name: default
+
 ssh_user: ec2-user
+
 user_email: admin@localhost.com
-user_pass: "{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16') }}"
+user_pass: "{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16') }}{{ lookup('password', '/tmp/userpass chars=ascii_letters length=16') }}"
 user_name: admin
+
+db_host: localhost
+db_name: {{site_name}}
+db_user: {{site_name}}
+db_pass: "{{ lookup('password', '/tmp/dbpass chars=ascii_letters length=16') }}"
+
 slack_token: none
 slack_channel: aws
+
 vim_background: dark

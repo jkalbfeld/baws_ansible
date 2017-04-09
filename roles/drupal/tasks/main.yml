@@ -1,9 +1,15 @@
+- name: include vagrant vars
+  include_vars: vagrant.yml
+  tags:
+   - vagrant
+
 - stat: path=/usr/bin/drush
   register: drush
   tags:
    - drush
    - dev
    - burris_builder
+   - drupal_site
 
 - name: install drush
   get_url: url=http://files.drush.org/drush.phar dest=/usr/bin/drush mode=ugo+x
@@ -14,3 +20,11 @@
    - drush
    - dev
    - burris_builder
+   - drupal_site
+
+
+#Should be set with vars db_name db_user db_pass and db_host
+- name: create drupal settigs.php
+  template: src=drupal.settings.js dest={{ site_root }}/sites/default/settings.php
+  tage:
+   - drupal_site
