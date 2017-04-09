@@ -25,7 +25,7 @@
 
 
 #Should be set with vars db_name db_user db_pass and db_host
-- name: create drupal settigs.php
-  template: src=drupal.settings.js dest={{ site_root }}/sites/default/settings.php
+- name: create drupal settings.php
+  template: src=drupal.settings.j2 dest={{ site_root }}/sites/default/settings.php
   tags:
    - drupal7_site
