@@ -1,3 +1,0 @@
-drupal_db_name: {{ site_name }}
-drupal_db_user: {{ site_name }}
-drupal_db_pass: {{ }}
