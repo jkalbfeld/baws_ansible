@@ -111,7 +111,7 @@
 
 - name: setup nginx for vagrant
   lineinfile:
-    dest: /etc/nginx.conf
+    dest: /etc/nginx/nginx.conf
     state: present
     regexp: '^user'
     line: 'user vagrant;'
