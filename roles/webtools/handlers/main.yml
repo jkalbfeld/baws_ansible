@@ -2,7 +2,4 @@
   npm: name=grunt state=present global=yes
 
 - name: install npm bower
-  npm: name=bower state=present global=yes
-
-- name: clone opcache
-  git: repo=https://github.com/wwwpro/OpCacheGUI.git dest=/opt/opcache
+  npm: name=bower state=present global=yese

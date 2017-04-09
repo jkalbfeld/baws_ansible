@@ -1,2 +1,2 @@
 monit_dir: /etc/monit.d
-ssh_user: vagrant
+ssh_user: ec2-user

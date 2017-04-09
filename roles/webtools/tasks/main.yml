@@ -1,43 +1,16 @@
 ---
 
-- name: install patch
-  yum: name=patch state=present
-  tags:
-   - dev
-
-- name: install npm
-  yum: name=npm state=present enablerepo=epel
-  notify:
-   - install npm grunt
-   - install npm bower
-  tags:
-   - dev
-   - npm
-
-#Install Webmin
-- block:
-  - name: install webmin
-    copy: src=webmin.repo dest=/etc/yum.repos.d/webmin.repo
-
-  - name: import jcameron key
-    rpm_key: key=http://www.webmin.com/jcameron-key.asc state=present
-
-  - name: install webmin yum
-    yum: name=webmin state=present
-
-  tags:
-   - webmin
-
-
+- name: include webtools family
+  include: "{{ansible_os_family}}.yml"
 
 #PMA Block
 - block:
 
   - name: phpmyadmin folder
-    file: path=/opt owner=ec2-user state=directory
+    file: path=/opt owner={{ ssh_user }} state=directory
 
   - name: setup phpmyadmin
-    become_user: ec2-user
+    become_user: "{{ ssh_user }}"
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev  --no-ansi --no-interaction --no-progress
     notify:
      - symlink pma
@@ -72,8 +45,11 @@
   - name: clear opcache directory
     file: path=/opt/opcache state=absent
     when: not opcache.stat.exists
-    notify:
-     - clone opcache
+
+  - name: clone opcache
+    git: repo=https://github.com/wwwpro/OpCacheGUI.git dest=/opt/opcach
+    when: not opcache.stat.exists
+
   tags:
    - devtools
    - opcache

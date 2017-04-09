@@ -1,4 +1,3 @@
-dav_path: /var/www/html/default
 output_file: default.conf
 ssl_crt: /etc/pki/tls/certs/localhost.crt
 ssl_key: /etc/pki/tls/private/localhost.key

@@ -13,7 +13,7 @@ ForceType text/plain
 Dav On
 </Location>
 
-<Directory {{dav_path}}>
+<Directory {{site_root}}/{{site_name}}>
 #Overrides default PHP settings to allow Webdav to show a directroy listing.
 DirectoryIndex disabled
 #Ignore .htaccess files
@@ -37,7 +37,7 @@ CustomLog     {{apach_log_dir}}/{{site_name}}-access.log combined Env=!DontLog
 
 
 <VirtualHost *:444>
-DocumentRoot {{dav_path}}
+DocumentRoot {{site_root}}/{{site_name}}
 #ServerName *
 
 <Location "/" >

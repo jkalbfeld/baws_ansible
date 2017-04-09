@@ -2,7 +2,7 @@
 - block:
 
   - name: create default html directory
-    file: path=/var/www/html state=directory owner=ec2-user group=nginx
+    file: path=/var/www/html state=directory owner={{ssh_user}} group=nginx
 
   - name: install grav via composer
     become_user: "{{ssh_user}}"
@@ -60,7 +60,7 @@
       chdir: /var/www/html
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
+    file: path=/var/www/html/default owner={{ ssh_user }} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - drupal8
@@ -72,7 +72,7 @@
     include_vars: wp.yml
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
+    file: path=/var/www/html/default owner={{ ssh_user }} group=burrisx recurse=yes state=directory mode=0775
 
   - name: installing minimal wordpress site
     shell: /usr/local/bin/wp core download

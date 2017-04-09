@@ -6,7 +6,7 @@
   - stat: path=/usr/local/bin/composer-setup.php
     register: composer_setup
 
-  - name: delete previously failed composer install
+  - name: delete previously failed composer install if applicable
     file: path=/usr/local/bin/composer-setup.php state=absent
     when: composer_setup.stat.exists
 
@@ -14,7 +14,7 @@
     get_url:
      url: https://getcomposer.org/installer
      dest: /usr/local/bin/composer-setup.php
-     owner: ec2-user
+     owner: "{{ssh_user}}"
      group: burrisx
     when: not composer.stat.exists
     notify:
