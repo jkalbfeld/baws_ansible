@@ -10,6 +10,7 @@
    - awslogs
    - users
    - common
+   - php-fpm
    - composer
    - memcached
    - slack
@@ -22,5 +23,4 @@
    - websites
    - burris_builder
    - nginx
-   - php-fpm
 ...
