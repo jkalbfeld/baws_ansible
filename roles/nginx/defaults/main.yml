@@ -1,10 +1,7 @@
 site_available: /etc/nginx/sites-available
 site_enabled: /etc/nginx/sites-enabled
-site_root: /var/www/html
 site_log: /var/log/nginx
 site_log_level: crit
-site_name: default
-site_logs: /var/log/nginx
 site_domain: none
 ssl_certificate: none
 ssl_key: none
