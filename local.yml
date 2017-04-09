@@ -8,6 +8,7 @@
   - include: "{{ansible_os_family}}.yml"
   roles:
    - awslogs
+   - users
    - common
    - composer
    - memcached
