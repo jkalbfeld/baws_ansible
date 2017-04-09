@@ -1,12 +1,12 @@
 - block:
 
   - name: update all yum packages
-      yum:
-        name: "*"
-        state: latest
+    yum:
+      name: "*"
+      state: latest
 
   - name: get vars
-      include_vars: "{{ansible_os_family}}.yml"
+    include_vars: "{{ansible_os_family}}.yml"
 
   - name: install basic packages
     yum: name={{ item }} state=installed
@@ -21,6 +21,7 @@
     register: yumcron
 
   handlers:
+
   - name: sed yum cron
     lineinfile:
      dest: /etc/yum/yum-cron.conf

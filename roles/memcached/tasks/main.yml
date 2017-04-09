@@ -1,10 +1,4 @@
 ---
-- name: install memcached
-  yum: name=memcached
-  notify:
-   - enable memcached
-   - monitor memcached
-   - restart memcached
-  tags:
-   - memcached
+- name: include memcache tasks
+  include: "{{ansible_os_family}}.yml"
 ...

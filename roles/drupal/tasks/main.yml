@@ -9,7 +9,8 @@
    - drush
    - dev
    - burris_builder
-   - drupal_site
+   - drupal7_site
+   - drupal8_site
 
 - name: install drush
   get_url: url=http://files.drush.org/drush.phar dest=/usr/bin/drush mode=ugo+x
@@ -27,4 +28,4 @@
 - name: create drupal settigs.php
   template: src=drupal.settings.js dest={{ site_root }}/sites/default/settings.php
   tage:
-   - drupal_site
+   - drupal7_site

@@ -35,11 +35,11 @@
      - create site
      - enable site
     args:
-      creates: /var/www/html/default/index.php
+      creates: /var/www/html/{{site_name}}/index.php
       chdir: /var/www/html
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
+    file: path=/var/www/html/{{site_name}} owner={{ssh_user}} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - drupal7
@@ -86,7 +86,7 @@
       chdir: /var/www/html/default/index.php
 
   - name: create default directory
-    file: path=/var/www/html/default owner=ec2-user group=burrisx recurse=yes state=directory mode=0775
+    file: path=/var/www/html/{{site_name}} owner={{ssh_user}} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
    - wordpress
@@ -96,7 +96,7 @@
 - block:
 
   - name: create blank site
-    file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory
+    file: path=/var/www/html/{{site_name}} owner=nginx group=burrisx recurse=yes state=directory
     notify:
      - symlink default site
      - symlink default dav

@@ -1,1 +1,2 @@
 monit_dir: /etc/monit/conf.d
+ssh_user: ubuntu

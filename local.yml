@@ -7,7 +7,18 @@
   pre_tasks:
   - include: "{{ansible_os_family}}.yml"
   roles:
+   - awslogs
    - common
+   - composer
+   - memcached
+   - ec2
+   - cloudwatch
+   - codedeploy
+   - webtools
+   - drupal
+   - wp
+   - websites
+   - burris_builder
    - nginx
    - php-fpm
 ...

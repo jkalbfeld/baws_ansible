@@ -1,5 +1,8 @@
 ---
 
+- name: include nginx family values
+  include_vars: "{{ansible_os_family}}.yml"
+
 - name: stat nginx git repo before
   stat: path=/etc/nginx/.git
   register: nginx_repo

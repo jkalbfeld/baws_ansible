@@ -13,7 +13,11 @@
     - g++
     - libjemalloc1
     - libjemalloc-dev
-
-
   tags:
    - always
+
+
+- name: import vagrant ssh user
+  include_vars: vabrant.yml
+  tags:
+   - vagrant
