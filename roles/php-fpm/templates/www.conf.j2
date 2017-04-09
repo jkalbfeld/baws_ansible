@@ -36,9 +36,9 @@ listen.allowed_clients = 127.0.0.1
 ; Note: The user is mandatory. If the group is not set, the default user's group
 ;       will be used.
 ; RPM: apache Choosed to be able to access some dir as httpd
-user = {{php_user}}
+user = {{pool_user}}
 ; RPM: Keep a group allowed to write in log dir.
-group = {{php_user}}
+group = {{pool_group}}
 
 ; Choose how the process manager will control the number of child processes.
 ; Possible Values:
@@ -223,6 +223,6 @@ php_admin_value[error_log] = {{php_log}}
 php_admin_value[memory_limit] = {{php_memory}}
 
 ; Set session path to a directory owned by process user
-php_value[session.save_handler] = files
+php_value[session.save_handler] = {{php_save_handler}}
 php_value[session.save_path] = {{ php_session }}
 

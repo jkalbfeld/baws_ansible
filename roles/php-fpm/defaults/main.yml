@@ -1,2 +1,4 @@
 php_version: 7.0
-php_user: nginx
+pool_user: nginx
+pool_group: nginx
+php_save_handler: files
