@@ -11,8 +11,8 @@ user_name: admin
 
 
 db_host: localhost
-db_name: {{site_name}}
-db_user: {{site_name}}
+db_name: "{{site_name}}"
+db_user: "{{site_name}}"
 db_pass: "{{ lookup('password', '/tmp/dbpass chars=ascii_letters length=16') }}"
 
 slack_token: none
