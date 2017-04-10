@@ -53,7 +53,7 @@
 
 
 - name: create nginx conf
-  template: src=default_secure.j2.conf dest={{nginx_available}}/{{site_name}}.conf
+  template: src=default_secure.j2.conf dest={{site_available}}/{{site_name}}.conf
   vars:
     pool: phpcgi
     nginx_ssl_dir: "{{ssl_dir}}"
