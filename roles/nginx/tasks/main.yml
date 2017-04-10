@@ -33,7 +33,7 @@
   - name: create nginx self signed certificate
     shell: openssl req -new -nodes -x509 -subj "/C=../ST=../L=../O=../CN=localhost" -days 3650 -keyout /etc/nginx/ssl/nginx.key -out /etc/nginx/ssl/nginx.crt -extensions v3_ca
     args:
-      creates: /etc/nginx/ssl/nginx.crt
+      creates: "{{ssl_dir}}/nginx.crt"
 
   - name: create microcache directory
     file: path=/var/cache/nginx/microcache state=directory
@@ -51,6 +51,30 @@
    - status
    - default_site
 
+
+- name: create nginx conf
+  template: src=default_secure.j2.conf dest={{nginx_available}}/{{site_name}}.conf
+  vars:
+    pool: phpcgi
+    nginx_ssl_dir: "{{ssl_dir}}"
+    ssl_cert: "{{site_name}}.crt"
+    ssl_key: "{{site_name}}.key"
+    nginx_includes:
+     - apps/drupal/drupal.conf
+     - apps/drupal/drupal_cron_update.conf
+     - apps/drupal/drupal_install.conf
+  notify:
+   - restart nginx
+  tags:
+   - drupal7_site
+
+- name: symlink nginx conf
+  file:
+    src: "{{nginx_available}}/{{site_name}}.conf"
+    dest: "{{nginx_enabled}}/{{site_name}}.conf"
+    state: link
+  tags:
+   - drupal7_site
 
 #Either status or default can be linked for status.
 #Linking both will cause warnings, but not problems.
