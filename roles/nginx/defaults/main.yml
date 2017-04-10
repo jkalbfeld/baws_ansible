@@ -31,7 +31,6 @@ pool: phpcgi
 s3_bucket: none
 s3_dir: keys/ssl
 
-
 s3_region: us-west-2
 
 s3_keys: none
