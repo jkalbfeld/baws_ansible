@@ -36,6 +36,9 @@
   - name: phpmyadmin folder
     file: path=/opt owner=ec2-user state=directory
 
+  - name: alter composer config for interaction stops
+    shell: /usr/local/bin/composer config --global discard-changes true
+
   - name: setup phpmyadmin
     become_user: ec2-user
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev  --no-ansi --no-interaction --no-progress
