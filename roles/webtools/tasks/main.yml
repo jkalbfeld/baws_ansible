@@ -39,6 +39,7 @@
   - name: setup phpmyadmin
     become_user: ec2-user
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project phpmyadmin/phpmyadmin --repository-url=https://www.phpmyadmin.net/packages.json --no-dev  --no-ansi --no-interaction --no-progress
+    ignore_errors: yes
     notify:
      - symlink pma
      - restart nginx
