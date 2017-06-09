@@ -12,6 +12,7 @@
     apt: name={{ item }} state=installed
     with_items:
     - php-pear
+    - php7.0-curl
     - php7.0-common
     - php7.0-cli
     - php7.0-dev
