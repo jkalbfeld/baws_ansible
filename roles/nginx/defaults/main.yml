@@ -19,6 +19,7 @@ site_domains:
 # - dev.example.com
 # - cdn.example.com
 
+nginx_redirect: false
 #Redirect extraneous domains back to the original domain.
 nginx_redirects:
 #- "*.example.com"
@@ -42,7 +43,7 @@ nginx_ssl: off
 nginx_log: /var/log/nginx
 nginx_enabled: /etc/nginx/sites-enabled
 nginx_available: /etc/nginx/sites-available
-nginx_redirect: false
+
 nginx_secure_redirect: true
 
 nginx_ssl_dir: /etc/nginx/ssl
