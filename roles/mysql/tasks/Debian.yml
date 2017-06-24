@@ -8,12 +8,4 @@
    - mysql
    - local
 
-- name: install mysql command
-  apt: name=mysql56 state=present
-  tags:
-   - mysql
-   - dev
-   - live
-   - local
-
 - meta: flush_handlers
