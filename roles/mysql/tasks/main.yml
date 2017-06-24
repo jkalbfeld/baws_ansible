@@ -15,6 +15,7 @@
   when: mysql_pass is defined
   tags:
    - mysql
+   - local
 
 
 - name: install my cnf
