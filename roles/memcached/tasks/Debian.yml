@@ -1,5 +1,5 @@
 - name: install memcached
-  apt: name=memcached state=prsent
+  apt: name=memcached state=present
   notify:
    - enable memcached boot
    - enable memcached
