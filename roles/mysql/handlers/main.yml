@@ -1,7 +1,7 @@
 - name: enable mysql boot
   service: name=mysqld enabled=yes state=started
 
-- name: installing pip mysql
+- name: install pip mysql
   pip: name=MySQL-python state=present
 
 - name: restart mysql

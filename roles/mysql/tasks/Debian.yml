@@ -1,12 +1,9 @@
 - name: install mysql server
   apt: name=mysql-server-5.6 state=present
   notify:
-   - install my cnf
    - enable mysql boot
+   - install pip mysql
    - restart mysql
-   - create root pass
-   - installing pip mysql
-   - create root cnf
   tags:
    - mysql
    - local

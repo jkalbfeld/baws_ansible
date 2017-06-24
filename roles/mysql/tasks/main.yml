@@ -19,7 +19,7 @@
 
 
 - name: install my cnf
-  copy: src=my.cnf dest=/etc
+  copy: src=my.cnf dest={{mysql_cnf}}
   tags:
    - mysql
    - local
