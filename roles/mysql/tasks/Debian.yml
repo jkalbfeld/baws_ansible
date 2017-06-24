@@ -8,4 +8,11 @@
    - mysql
    - local
 
+- name: install python mysql
+  apt: name=python-mysqldb
+  tags:
+   - mysql
+   - local
+   - mysql_import
+
 - meta: flush_handlers
