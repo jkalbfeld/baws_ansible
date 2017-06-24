@@ -1,8 +1,7 @@
 - name: install memcached
   yum: name=memcached
   notify:
-   - enable memcached
-   - monitor memcached
+   - enable memcached boot
    - restart memcached
   tags:
    - memcached
