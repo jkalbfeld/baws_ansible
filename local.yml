@@ -15,6 +15,7 @@
    - composer
    - memcached
    - slack
+   - mysql
    - ec2
    - cloudwatch
    - codedeploy

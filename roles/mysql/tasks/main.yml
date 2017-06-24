@@ -21,3 +21,4 @@
   copy: src=my.cnf dest=/etc
   tags:
    - mysql
+   - local

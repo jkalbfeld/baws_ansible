@@ -1,4 +1,7 @@
 ---
 - name: include memcache tasks
   include: "{{ansible_os_family}}.yml"
+  tags:
+   - memcached
+   - local
 ...
