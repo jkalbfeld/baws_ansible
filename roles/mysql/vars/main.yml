@@ -1,0 +1,5 @@
+mysql_db: default
+mysql_user: default
+mysql_pass: "{{ lookup('password', '/tmp/mysql_pass chars=ascii_letters length=16') }}"
+mysql_import_dir: /var/www/html/default/
+mysql_import_file: mysql.sql.gz

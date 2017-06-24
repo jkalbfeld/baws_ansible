@@ -12,14 +12,38 @@
   - name: create root cnf
     template: src=root.cnf.j2 dest=/root/.my.cnf mode=0600
 
-  when: mysql_pass is defined
+  when: mysql_root_pass is defined
   tags:
    - mysql
    - local
-
 
 - name: install my cnf
   copy: src=my.cnf dest={{mysql_cnf}}
   tags:
    - mysql
    - local
+
+- block:
+
+  - name: create mysql database
+    mysql_db:
+      name: "{{mysql_db}}"
+
+  - name: create mysql user
+    mysql_user:
+      name: "{{mysql_user}}"
+      password: "{{mysql_pass}}"
+  tags:
+   - mysql
+   - local
+
+- name: import mysql database
+  mysql_db:
+    name: "{{mysql_db}}"
+    state: import
+    target: "{{mysql_target_dir}}/{{mysql_import_file}}"
+  tags:
+   - mysql_import
+
+
+
