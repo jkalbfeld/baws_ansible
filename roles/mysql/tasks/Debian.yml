@@ -1,0 +1,20 @@
+- name: install mysql server
+  yum: name=mysql56-server state=present
+  notify:
+   - install my cnf
+   - enable mysql boot
+   - restart mysql
+   - create root pass
+   - installing pip mysql
+   - create root cnf
+  tags:
+   - mysql
+
+- name: install mysql command
+  yum: name=mysql56 state=present
+  tags:
+   - mysql
+   - dev
+   - live
+
+- meta: flush_handlers
