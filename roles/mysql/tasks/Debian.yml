@@ -1,5 +1,5 @@
 - name: install mysql server
-  apt: name=mysql56-server state=present
+  apt: name=mysql-server-5.6 state=present
   notify:
    - install my cnf
    - enable mysql boot
