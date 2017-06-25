@@ -28,7 +28,7 @@
 - name: create drupal settings.php
   template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
   tags:
-   - drupal7_site
+   - drupal7_default
 
 - name: setting drupal settings according to import
   template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
