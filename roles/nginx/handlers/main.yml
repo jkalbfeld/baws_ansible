@@ -26,9 +26,6 @@
     state: link
   ignore_errors: true
 
-- name: restart nginx
-  service: name=nginx state=restarted
-
 - name: remove unsupported aio
   replace:
     dest: "{{item}}"
@@ -42,3 +39,6 @@
    - /etc/nginx/apps/drupal/drupal_dev.conf
    - /etc/nginx/apps/drupal/drupal_live.conf
    - /etc/nginx/apps/drupal/drupal_stage.conf
+
+- name: restart nginx
+  service: name=nginx state=restarted
