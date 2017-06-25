@@ -41,7 +41,7 @@
   mysql_db:
     name: "{{mysql_db}}"
     state: import
-    target: "{{mysql_target_dir}}/{{mysql_import_file}}"
+    target: "{{mysql_import_dir}}/{{mysql_import_file}}"
   tags:
    - mysql_import
 
