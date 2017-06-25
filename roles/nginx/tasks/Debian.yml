@@ -24,13 +24,13 @@
       regexp: '^\s*-aio'
       line: "#aio on; #turn off aio for ubuntu"
     with_items:
-     - /etc/nginx/apps/drupal.conf
-     - /etc/nginx/apps/drupal_boost.conf
-     - /etc/nginx/apps/drupal_boost_escaped.conf
-     - /etc/nginx/apps/drupal_burris.conf
-     - /etc/nginx/apps/drupal_dev.conf
-     - /etc/nginx/apps/drupal_live.conf
-     - /etc/nginx/apps/drupal_stage.conf
+     - /etc/nginx/apps/drupal/drupal.conf
+     - /etc/nginx/apps/drupal/drupal_boost.conf
+     - /etc/nginx/apps/drupal/drupal_boost_escaped.conf
+     - /etc/nginx/apps/drupal/drupal_burris.conf
+     - /etc/nginx/apps/drupal/drupal_dev.conf
+     - /etc/nginx/apps/drupal/drupal_live.conf
+     - /etc/nginx/apps/drupal/drupal_stage.conf
     notify:
      - restart nginx
 
