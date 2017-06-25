@@ -29,3 +29,12 @@
   template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
   tags:
    - drupal7_site
+
+- name: setting drupal settings according to import
+  template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
+  vars:
+   db_name: "{{mysql_db}}"
+   db_user: "{{mysql_user}}"
+   db_pass: "{{mysql_pass}}"
+  tags:
+   - drupal7_import
