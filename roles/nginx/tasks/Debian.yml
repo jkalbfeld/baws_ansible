@@ -19,7 +19,7 @@
 
   - name: remove unsupported aio
     lineinfile:
-      dest:
+      dest: "{{item}}"
       state: present
       regexp: "^\s*-aio"
       line: "#aio on; #turn off aio for ubuntu"
