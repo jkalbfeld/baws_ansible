@@ -12,6 +12,7 @@ user_name: admin
 nginx_user: nginx
 nginx_group: nginx
 
+#Used to fill in config filess
 db_host: localhost
 db_name: "{{site_name}}"
 db_user: "{{site_name}}"
@@ -22,3 +23,10 @@ slack_token: none
 slack_channel: aws
 
 vim_background: dark
+
+#Used to create dbs when MySQL is installed locally
+mysql_db: default
+mysql_user: default
+mysql_pass: "{{ lookup('password', '/tmp/mysql_pass chars=ascii_letters length=16') }}"
+mysql_import_dir: /var/www/html/default/
+mysql_import_file: mysql.sql.gz
