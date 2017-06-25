@@ -14,7 +14,7 @@
     lineinfile:
       dest: /etc/awslogs/awscli.conf
       state: present
-      regexp: '^region = us-east-1'
+      regexp: '^region'
       line: "region = {{ansible_ec2_placement_region}}"
     notify:
     - restart awslogs

@@ -65,7 +65,7 @@
   - name: set php memory limit
     lineinfile:
      dest: /etc/php.ini
-     regexp: '^memory_limit = 128M'
+     regexp: '^memory_limit'
      line: 'memory_limit = 512M'
      state: present
     tags:
