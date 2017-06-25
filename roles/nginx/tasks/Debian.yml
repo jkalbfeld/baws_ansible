@@ -21,7 +21,7 @@
     lineinfile:
       dest: "{{item}}"
       state: present
-      regexp: "^\s*-aio"
+      regexp: '^\s*-aio'
       line: "#aio on; #turn off aio for ubuntu"
     with_items:
      - /etc/nginx/apps/drupal.conf
