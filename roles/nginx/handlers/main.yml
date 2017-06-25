@@ -28,3 +28,17 @@
 
 - name: restart nginx
   service: name=nginx state=restarted
+
+- name: remove unsupported aio
+    replace:
+      dest: "{{item}}"
+      regexp: '^\s*[#]?aio'
+      replace: "#aio on; #turn off aio for ubuntu"
+    with_items:
+     - /etc/nginx/apps/drupal/drupal.conf
+     - /etc/nginx/apps/drupal/drupal_boost.conf
+     - /etc/nginx/apps/drupal/drupal_boost_escaped.conf
+     - /etc/nginx/apps/drupal/drupal_burris.conf
+     - /etc/nginx/apps/drupal/drupal_dev.conf
+     - /etc/nginx/apps/drupal/drupal_live.conf
+     - /etc/nginx/apps/drupal/drupal_stage.conf
