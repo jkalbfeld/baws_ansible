@@ -31,6 +31,8 @@
      - /etc/nginx/apps/drupal_dev.conf
      - /etc/nginx/apps/drupal_live.conf
      - /etc/nginx/apps/drupal_stage.conf
+    notify:
+     - restart nginx
 
   tags:
    - dev
