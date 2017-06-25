@@ -2,7 +2,6 @@
   apt: name=mysql-server-5.6 state=present
   notify:
    - enable mysql boot
-   - install pip mysql
    - restart mysql
   tags:
    - mysql
