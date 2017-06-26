@@ -56,9 +56,6 @@
   template: src=default_secure.j2.conf dest={{site_available}}/{{site_name}}.conf
   vars:
     pool: phpcgi
-    nginx_ssl_dir: "{{ssl_dir}}"
-    ssl_cert: "{{site_name}}.crt"
-    ssl_key: "{{site_name}}.key"
     nginx_includes:
      - apps/drupal/drupal.conf
      - apps/drupal/drupal_cron_update.conf
