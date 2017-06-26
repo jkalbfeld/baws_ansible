@@ -48,7 +48,7 @@ nginx_secure_redirect: true
 
 nginx_ssl_dir: /etc/nginx/ssl
 ssl_key: nginx.key
-ssl_crt: nginx.crt
+ssl_cert: nginx.crt
 
 nginx_includes:
  - apps/global/cache-live.conf
