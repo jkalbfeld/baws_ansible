@@ -3,6 +3,8 @@
     path: "{{server_root}}"
     state: directory
     mode: 0755
+  tags:
+   - vagrant
 
 - name: copy vagrant host to default host
   copy:
