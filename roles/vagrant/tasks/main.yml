@@ -7,7 +7,7 @@
    - vagrant
 
 - name: copy vagrant host to default host
-  copy:
+  synchronize:
     src: "{{vagrant_src}}"
     dest: "{{server_root}}"
   tags:
