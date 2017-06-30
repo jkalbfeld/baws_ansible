@@ -1,6 +1,6 @@
 - name: copy vagrant host to default host
   copy:
-    src: {{vagrant_src}}
-    dest: {{server_root}}
+    src: "{{vagrant_src}}"
+    dest: "{{server_root}}"
   tags:
    - vagrant
