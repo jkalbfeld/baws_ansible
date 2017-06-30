@@ -8,7 +8,7 @@
 
 - name: copy vagrant host to default host
   copy:
-    content: "{{vagrant_src}}"
+    src: "{{vagrant_src}}"
     dest: "{{server_root}}"
   tags:
    - vagrant
