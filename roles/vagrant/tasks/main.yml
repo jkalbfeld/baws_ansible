@@ -1,3 +1,9 @@
+- name: create server root directory
+  file:
+    path: "{{server_root}}"
+    state: directory
+    mode: 0755
+
 - name: copy vagrant host to default host
   copy:
     src: "{{vagrant_src}}"
