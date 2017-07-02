@@ -1,14 +1,18 @@
-- name: create server root directory
-  file:
-    path: "{{server_root}}"
-    state: directory
-    mode: 0755
-  tags:
-   - vagrant
+- block:
 
-- name: copy vagrant host to default host
-  synchronize:
-    src: "{{vagrant_src}}"
-    dest: "{{server_root}}"
+  - name: create server root directory
+    file:
+      path: "{{server_root}}"
+      state: directory
+      mode: 0755
+
+  - name: synchronize vagrant host to default host
+    synchronize:
+      src: "{{vagrant_src}}"
+      dest: "{{server_root}}"
+      rsync_opts:
+       - "--exclude=*.sql.gz"
+       - "--exclude=*.idea"
+       - "--exclude=*node_modules*"
   tags:
    - vagrant
