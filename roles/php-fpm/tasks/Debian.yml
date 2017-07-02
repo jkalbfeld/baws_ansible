@@ -26,6 +26,7 @@
     - php7.0-xml
     - php7.0-xmlrpc
     - php7.0-zip
+    - php-memcached
     register: php
 
   - name: install php-fpm
