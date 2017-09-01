@@ -1,4 +1,32 @@
 <?php
+
+/**
+* Ansible Template
+**/
+
+
+$conf['cache_backends'][] = 'sites/all/modules/memcache/memcache.inc';
+$conf['lock_inc'] = 'sites/all/modules/memcache/memcache-lock.inc';
+$conf['memcache_key_prefix'] = '{{memcache_prefix}}';
+$conf['cache_default_class'] = 'MemCacheDrupal';
+
+$conf['page_cache_without_database'] = TRUE;
+$conf['page_cache_invoke_hooks'] = FALSE;
+
+// The 'cache_form' bin must be assigned to non-volatile storage.
+$conf['cache_class_cache_form'] = 'DrupalDatabaseCache';
+
+$conf['memcache_servers'] = array(
+  '{{memcache_host}}:{{memcache_port}}' => 'default',
+);
+
+$conf['memcache_bins'] = array(
+  'cache' => 'default',
+  'cache_form' => 'database'
+);
+
+
+
  /**
   * @file
   * Drupal site-specific configuration file.

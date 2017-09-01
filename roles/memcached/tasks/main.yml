@@ -1,7 +1,16 @@
 ---
-- name: include memcache tasks
-  include: "{{ansible_os_family}}.yml"
+
+- block:
+
+  - name: include memcache tasks
+    include: "{{ansible_os_family}}.yml"
+
+  - name: set memcached fact
+    set_fact:
+      has_memcache: 0
+
   tags:
    - memcached
    - local
+
 ...
