@@ -101,14 +101,14 @@
     lineinfile:
       dest: /etc/php.ini
       state: present
-      regexp: '^post_max_size = 8M'
+      regexp: '^post_max_size'
       line: 'post_max_size = 100M'
 
   - name: change max upload
     lineinfile:
       dest: /etc/php.ini
       state: present
-      regexp: '^upload_max_filesize = 2M'
+      regexp: '^upload_max_filesize'
       line: 'upload_max_filesize = 100M'
 
   when: php_version == 70
