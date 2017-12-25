@@ -36,3 +36,5 @@ has_memcache: 0
 memcache_host: localhost
 memcache_port: 11211
 memcache_prefix: local_
+
+drupal8_site_root: "{{site_root}}/web"

@@ -64,6 +64,7 @@
    - restart nginx
   tags:
    - drupal7_site
+   - drupal8_site
 
 - name: symlink nginx conf
   file:
@@ -72,6 +73,7 @@
     state: link
   tags:
    - drupal7_site
+   - drupal8_site
 
 #Either status or default can be linked for status.
 #Linking both will cause warnings, but not problems.
