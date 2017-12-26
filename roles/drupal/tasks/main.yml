@@ -34,8 +34,9 @@
    - local_db_import
 
 - name: composer install
-  shell: su vagrant -c 'composer install --no-interaction --prefer-dist'
+  cmd: composer install --no-interaction --prefer-dist
   args:
     creates: "/var/www/html/{{site_name}}/vendor"
+  become_user: "{{ssh_user}}"
   tags:
    - composer_install
