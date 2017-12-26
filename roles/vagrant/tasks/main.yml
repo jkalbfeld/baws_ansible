@@ -2,14 +2,14 @@
 
   - name: create server root directory
     file:
-      path: "{{server_root}}"
+      path: "/var/www/html/{{site_name}}"
       state: directory
       mode: 0755
 
   - name: synchronize vagrant host to default host
     synchronize:
       src: "{{vagrant_src}}"
-      dest: "{{server_root}}"
+      dest: "/var/www/html/{{site_name}}"
       rsync_opts:
        - "--exclude=*.sql.gz"
        - "--exclude=*.idea"
