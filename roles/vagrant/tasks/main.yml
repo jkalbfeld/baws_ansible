@@ -15,4 +15,4 @@
        - "--exclude=*.idea"
        - "--exclude=*node_modules*"
   tags:
-   - vagrantexit
+   - vagrant
