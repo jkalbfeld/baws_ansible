@@ -8,7 +8,6 @@
     become_user: "{{ssh_user}}"
     shell: /usr/bin/php -c /etc/php-composer.ini /usr/local/bin/composer create-project getgrav/grav default  --no-dev  --no-ansi --no-interaction --no-progress
     notify:
-     - symlink default site
      - symlink default dav
      - restart nginx
     args:

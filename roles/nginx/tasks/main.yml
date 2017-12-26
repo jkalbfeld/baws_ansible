@@ -58,7 +58,7 @@
    - drupal8
 
 
-- name: create nginx conf
+- name: create drupal nginx conf
   template: src=default_secure.j2.conf dest={{site_available}}/{{site_name}}.conf
   vars:
     pool: phpcgi
@@ -68,15 +68,7 @@
      - apps/drupal/drupal_install.conf
   notify:
    - restart nginx
-  tags:
-   - drupal7
-   - drupal8
-
-- name: symlink nginx conf
-  file:
-    src: "{{site_available}}/{{site_name}}.conf"
-    dest: "{{site_enabled}}/{{site_name}}.conf"
-    state: link
+   - enable site
   tags:
    - drupal7
    - drupal8

@@ -4,5 +4,5 @@
    dest: /usr/local/bin/wp
    mode: a+x
   tags:
-   - dev
    - wpcli
+   - utils
