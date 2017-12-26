@@ -18,7 +18,7 @@
     file: path=/var/www/html/default owner=nginx group=burrisx recurse=yes state=directory mode=0775
 
   tags:
-   - grav
+   - grav_new
 
 
 #Install drupal site.
@@ -41,7 +41,7 @@
     file: path=/var/www/html/{{site_name}} owner={{ssh_user}} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
-   - drupal7
+   - drupal7_new
 
 #Install Drupal 8.
 - block:
@@ -50,19 +50,18 @@
     include_vars: drupal.yml
 
   - name: installing minimal drupal 8 site
-    shell: /usr/bin/drush dl drupal-8 --destination=./ --drupal-project-rename=default
+    shell: composer create-project drupal-composer/drupal-project:8.x-dev default --stability dev --no-interaction --prefer-dist
     notify:
-     - create site
      - enable site
     args:
-      creates: /var/www/html/default/index.php
+      creates: /var/www/html/default/web/index.php
       chdir: /var/www/html
 
   - name: create default directory
     file: path=/var/www/html/default owner={{ ssh_user }} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
-   - drupal8
+   - drupal8_new
 
 #Install WordPress
 - block:
@@ -77,8 +76,7 @@
     shell: /usr/local/bin/wp core download
     become: "{{ssh_user}}"
     notify:
-     - create site
-     - enable
+     - enable site
      - restart nginx
     args:
       creates: /var/www/html/default/index.php
@@ -88,7 +86,7 @@
     file: path=/var/www/html/{{site_name}} owner={{ssh_user}} group=burrisx recurse=yes state=directory mode=0775
 
   tags:
-   - wordpress
+   - wordpress_new
 
 
 #Install blank site.
