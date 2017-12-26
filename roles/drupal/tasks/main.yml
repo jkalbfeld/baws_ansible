@@ -37,3 +37,5 @@
   shell: composer install --no-interaction --prefer-dist
   args:
     creates: "/var/www/html/{{site_name}}/vendor"
+  tags:
+   - composer_install
