@@ -36,8 +36,8 @@
 - name: composer install
   become_user: "{{ssh_user}}"
   shell: composer install --no-interaction --prefer-dist
-  chdir: "/var/www/html/{{site_name}}"
   args:
+    chdir: "/var/www/html/{{site_name}}"
     creates: "/var/www/html/{{site_name}}/vendor"
   tags:
    - composer_install
