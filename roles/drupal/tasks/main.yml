@@ -35,7 +35,7 @@
 
 - name: composer install
   become_user: "{{ssh_user}}"
-  cmd: composer install --no-interaction --prefer-dist
+  shell: composer install --no-interaction --prefer-dist
   args:
     creates: "/var/www/html/{{site_name}}/vendor"
   tags:
