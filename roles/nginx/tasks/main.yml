@@ -51,6 +51,12 @@
    - status
    - default_site
 
+- name: change nginx variable for D8
+  set_fact:
+    server_root: "/var/www/html/{{site_name}}/web"
+  tags:
+   - drupal8
+
 
 - name: create nginx conf
   template: src=default_secure.j2.conf dest={{site_available}}/{{site_name}}.conf
@@ -63,8 +69,8 @@
   notify:
    - restart nginx
   tags:
-   - drupal7_site
-   - drupal8_site
+   - drupal7
+   - drupal8
 
 - name: symlink nginx conf
   file:
@@ -72,8 +78,8 @@
     dest: "{{site_enabled}}/{{site_name}}.conf"
     state: link
   tags:
-   - drupal7_site
-   - drupal8_site
+   - drupal7
+   - drupal8
 
 #Either status or default can be linked for status.
 #Linking both will cause warnings, but not problems.

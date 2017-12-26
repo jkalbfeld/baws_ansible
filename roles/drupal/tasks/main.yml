@@ -9,8 +9,8 @@
    - drush
    - dev
    - burris_builder
-   - drupal7_site
-   - drupal8_site
+   - drupal7
+   - drupal8
 
 - name: install drush
   get_url: url=http://files.drush.org/drush.phar dest=/usr/bin/drush mode=ugo+x
@@ -24,12 +24,6 @@
    - drupal_site
 
 
-#Should be set with vars db_name db_user db_pass and db_host
-- name: create drupal settings.php
-  template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
-  tags:
-   - drupal7_default
-
 - name: setting drupal settings according to import
   template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
   vars:
@@ -37,4 +31,4 @@
    db_user: "{{mysql_user}}"
    db_pass: "{{mysql_pass}}"
   tags:
-   - drupal7_import
+   - local_db_import

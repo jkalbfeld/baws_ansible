@@ -42,7 +42,7 @@
     target: "{{mysql_import_dir}}/{{mysql_import_file}}"
   tags:
    - mysql_import
-   - drupal7_import
+   - local_db_import
    - wp_import
 
 
