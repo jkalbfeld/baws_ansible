@@ -32,6 +32,7 @@
    db_pass: "{{mysql_pass}}"
   tags:
    - local_db_import
+   - drupal7
 
 - name: composer install
   become_user: "{{ssh_user}}"

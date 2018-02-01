@@ -29,7 +29,7 @@
   - name: create mysql user
     mysql_user:
       name: "{{mysql_user}}"
-      password: "{{mysql_pass}}"
+      password: "{{db_pass}}"
       priv: '{{mysql_db}}.*:ALL'
   tags:
    - mysql
