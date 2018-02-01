@@ -27,9 +27,10 @@
 - name: setting drupal settings according to import
   template: src=drupal.settings.j2 dest={{ site_root }}/{{site_name}}/sites/default/settings.php
   vars:
-   db_name: "{{mysql_db}}"
-   db_user: "{{mysql_user}}"
-   db_pass: "{{mysql_pass}}"
+   drupal_db_name: "{{mysql_db}}"
+   drupal_db_user: "{{mysql_user}}"
+   drupal_db_pass: "{{mysql_pass}}"
+   drupal_db_host: "{{db_host}}"
   tags:
    - local_db_import
    - drupal7
