@@ -13,7 +13,7 @@
    - drupal8
 
 - name: install drush
-  get_url: url=http://files.drush.org/drush.phar dest=/usr/bin/drush mode=ugo+x
+  get_url: url=https://github.com/drush-ops/drush/releases/download/8.1.16/drush.phar dest=/usr/bin/drush mode=ugo+x
   notify:
    - initial drush run
   when: not drush.stat.exists
