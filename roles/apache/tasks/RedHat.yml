@@ -8,6 +8,7 @@
    - perl-libwww-perl
    - perl-App-cpanminus
    - php-fpm
+   - php
   notify:
    - enable apache boot
    - restart apache
